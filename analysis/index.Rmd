@@ -1,5 +1,5 @@
 ---
-title: "Home"
+title: "Overview"
 site: workflowr::wflow_site
 output:
   workflowr::wflow_html:
@@ -8,4 +8,40 @@ editor_options:
   chunk_output_type: console
 ---
 
-Welcome to my research website.
+SoilID Algorithm Testing
+There are two forms of code testing:
+1.	Code error testing: Testing for coding errors, i.e., does it run with all possible combination of inputs
+2.	Code validation: Validation of the matching algorithm, i.e., how accurate is it.
+
+Stage 1: Code error testing – ensure proper functioning of code given diversity of input data
+
+1.	soilIDlist
+    a.	Random sample
+        i.	US: 2,500 random locations generated across US
+        ii.	Global: ??
+    b.	Pedon test datasets
+        i.	US: 3,986 KSSL locations
+        ii.	Global: 1,183 (WISE and AfSIS)
+2.	soilIDrank
+    a.	Random sample (US & Global)
+        i.	Test random points using a dummy dataset that contains different degrees of data completeness.
+        
+1.	 All data
+2.	Slope only (US testing)
+3.	All data - missing surface depth
+4.	All data - missing sub-surface depth
+5.	Subset of properties
+    b.	Pedon test datasets (represent complete profiles with all data)
+        i.	Complete data
+        ii.	Subset of depths
+        iii.	Subset of properties
+
+Stage 2: Code validation -- assess and improve accuracy
+
+1.	soilIDlist: simple location-based ranking
+    a.	Possible improvements based on optimized exponential decay function.
+2.	soilIDRank: Gower’s generalized dissimilarity metric
+    a.	Incorporate texture class and rock fragment class as ordinal values
+    b.	Profile specific attributes
+    c.	Optimize location weighting of data dissimilarity
+
