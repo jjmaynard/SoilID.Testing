@@ -1,12 +1,14 @@
-name: "SoilID.Testing_site"
+name: "SoilID Testing"
 output_dir: ../docs
 navbar:
   title: "SoilID.Testing_site"
   left:
-  - text: Home
+  - text: Overview
     href: index.html
-  - text: About
-    href: about.html
+  - text: Code
+    href: code.html
+  - text: Data
+    href: data.html
   - text: License
     href: license.html
 output:
