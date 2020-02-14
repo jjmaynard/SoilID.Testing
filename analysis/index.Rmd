@@ -10,6 +10,7 @@ editor_options:
 
 SoilID Algorithm Testing
 There are two forms of code testing:
+
 1.	Code error testing: Testing for coding errors, i.e., does it run with all possible combination of inputs
 2.	Code validation: Validation of the matching algorithm, i.e., how accurate is it.
 
