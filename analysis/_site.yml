@@ -1,7 +1,7 @@
 name: "SoilID Testing"
 output_dir: ../docs
 navbar:
-  title: "SoilID.Testing_site"
+  title: "SoilID Testing"
   left:
   - text: Overview
     href: index.html
