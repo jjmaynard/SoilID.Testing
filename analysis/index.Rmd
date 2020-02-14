@@ -27,15 +27,15 @@ Stage 1: Code error testing – ensure proper functioning of code given diversit
     a.	Random sample (US & Global)
         i.	Test random points using a dummy dataset that contains different degrees of data completeness.
         
-1.	 All data
-2.	Slope only (US testing)
-3.	All data - missing surface depth
-4.	All data - missing sub-surface depth
-5.	Subset of properties
-    b.	Pedon test datasets (represent complete profiles with all data)
-        i.	Complete data
-        ii.	Subset of depths
-        iii.	Subset of properties
+            1.	 All data
+            2.	Slope only (US testing)
+            3.	All data - missing surface depth
+            4.	All data - missing sub-surface depth
+            5.	Subset of properties
+                b.	Pedon test datasets (represent complete profiles with all data)
+                    i.	Complete data
+                    ii.	Subset of depths
+                    iii.	Subset of properties
 
 Stage 2: Code validation -- assess and improve accuracy
 
