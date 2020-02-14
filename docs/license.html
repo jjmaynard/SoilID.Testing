@@ -272,10 +272,13 @@ $(document).ready(function () {
     <div id="navbar" class="navbar-collapse collapse">
       <ul class="nav navbar-nav">
         <li>
-  <a href="index.html">Home</a>
+  <a href="index.html">Overview</a>
 </li>
 <li>
-  <a href="about.html">About</a>
+  <a href="code.html">Code</a>
+</li>
+<li>
+  <a href="data.html">Data</a>
 </li>
 <li>
   <a href="license.html">License</a>
@@ -330,7 +333,7 @@ div.section {
 <strong>Checks:</strong> <span class="glyphicon glyphicon-ok text-success" aria-hidden="true"></span> 2 <span class="glyphicon glyphicon-exclamation-sign text-danger" aria-hidden="true"></span> 0
 </p>
 <p>
-<strong>Knit directory:</strong> <code>SoilID.Testing_site/</code> <span class="glyphicon glyphicon-question-sign" aria-hidden="true" title="This is the local directory in which the code in this file was executed."> </span>
+<strong>Knit directory:</strong> <code>SoilID.Testing/</code> <span class="glyphicon glyphicon-question-sign" aria-hidden="true" title="This is the local directory in which the code in this file was executed."> </span>
 </p>
 <p>
 This reproducible <a href="http://rmarkdown.rstudio.com">R Markdown</a> analysis was created with <a
@@ -355,10 +358,10 @@ This reproducible <a href="http://rmarkdown.rstudio.com">R Markdown</a> analysis
 <div class="panel panel-default">
 <div class="panel-heading">
 <p class="panel-title">
-<a data-toggle="collapse" data-parent="#workflowr-checks" href="#strongRepositoryversionstrongahrefhttpsgithubcomjjmaynardSoilIDTestingtreeeddf231502266a789f7e361bed0e2c44102866a5targetblankeddf231a"> <span class="glyphicon glyphicon-ok text-success" aria-hidden="true"></span> <strong>Repository version:</strong> <a href="https://github.com/jjmaynard/SoilID.Testing/tree/eddf231502266a789f7e361bed0e2c44102866a5" target="_blank">eddf231</a> </a>
+<a data-toggle="collapse" data-parent="#workflowr-checks" href="#strongRepositoryversionstrongahrefhttpsgithubcomjjmaynardSoilIDTestingtree370c3baad3a6173aa5413b1851f7a9fbbdf6bc8atargetblank370c3baa"> <span class="glyphicon glyphicon-ok text-success" aria-hidden="true"></span> <strong>Repository version:</strong> <a href="https://github.com/jjmaynard/SoilID.Testing/tree/370c3baad3a6173aa5413b1851f7a9fbbdf6bc8a" target="_blank">370c3ba</a> </a>
 </p>
 </div>
-<div id="strongRepositoryversionstrongahrefhttpsgithubcomjjmaynardSoilIDTestingtreeeddf231502266a789f7e361bed0e2c44102866a5targetblankeddf231a" class="panel-collapse collapse">
+<div id="strongRepositoryversionstrongahrefhttpsgithubcomjjmaynardSoilIDTestingtree370c3baad3a6173aa5413b1851f7a9fbbdf6bc8atargetblank370c3baa" class="panel-collapse collapse">
 <div class="panel-body">
 <p>
 Great! You are using Git for version control. Tracking code development and connecting the code version to the results is critical for reproducibility. The version displayed above was the version of the Git repository at the time these results were generated. <br><br> Note that you need to be careful to ensure that all relevant files for the analysis have been committed to Git prior to generating the results (you can use <code>wflow_publish</code> or <code>wflow_git_commit</code>). workflowr only checks the R Markdown file, but you know if there are other scripts or data files that it depends on. Below is the status of the Git repository when the results were generated:
@@ -367,18 +370,9 @@ Great! You are using Git for version control. Tracking code development and conn
 Ignored files:
     Ignored:    .Rhistory
     Ignored:    .Rproj.user/
-    Ignored:    R/
-
-Untracked files:
-    Untracked:  .travis.yml
-    Untracked:  Dockerfile
-    Untracked:  README.Rmd
-    Untracked:  SoilID.Testing_site/
-    Untracked:  analysis/
-
-Unstaged changes:
-    Modified:   .Rbuildignore
-    Modified:   DESCRIPTION
+    Ignored:    data/raw_data/
+    Ignored:    manuscript/figures/
+    Ignored:    proj_setup/
 
 </code></pre>
 <p>
