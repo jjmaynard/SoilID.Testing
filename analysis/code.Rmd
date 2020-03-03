@@ -24,7 +24,7 @@ SoilID consists of two main algorithms:
 
 These two algorithms are implimentation separately for all areas in the US (US-SoilID) and all areas outside of the US (Global-SoilID), with slight differences in the algorthim code to accomodate differences in the structure of the SSURGO and HWSD soil databases.
 
-The first sections of code run the 'soilIDlist' function for both US-SoilID and Global-SoilID, saving the data for each test case in a MySQL database. Once this code is successfully run with errors, the saved data in the MySQL database is later used by the 'soilIDrank' algorithm to calculate the profile dissimilarity scores and component data rankings.
+The first sections of code run the 'soilIDlist' function for both US-SoilID and Global-SoilID, saving the data for each test case in a MySQL database. Once this code is successfully run without any errors, the data saved in the MySQL database is later used by the 'soilIDrank' algorithm to calculate the profile dissimilarity scores and component data rankings.
 
 
 
