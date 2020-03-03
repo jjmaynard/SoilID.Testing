@@ -309,7 +309,7 @@ div.section {
 
 <p>
 <button type="button" class="btn btn-default btn-workflowr btn-workflowr-report" data-toggle="collapse" data-target="#workflowr-report">
-<span class="glyphicon glyphicon-list" aria-hidden="true"></span> workflowr <span class="glyphicon glyphicon-ok text-success" aria-hidden="true"></span>
+<span class="glyphicon glyphicon-list" aria-hidden="true"></span> workflowr <span class="glyphicon glyphicon-exclamation-sign text-danger" aria-hidden="true"></span>
 </button>
 </p>
 <div id="workflowr-report" class="collapse">
@@ -318,7 +318,7 @@ div.section {
 <a data-toggle="tab" href="#summary">Summary</a>
 </li>
 <li>
-<a data-toggle="tab" href="#checks"> Checks <span class="glyphicon glyphicon-ok text-success" aria-hidden="true"></span> </a>
+<a data-toggle="tab" href="#checks"> Checks <span class="glyphicon glyphicon-exclamation-sign text-danger" aria-hidden="true"></span> </a>
 </li>
 <li>
 <a data-toggle="tab" href="#versions">Past versions</a>
@@ -330,7 +330,7 @@ div.section {
 <strong>Last updated:</strong> 2020-03-03
 </p>
 <p>
-<strong>Checks:</strong> <span class="glyphicon glyphicon-ok text-success" aria-hidden="true"></span> 2 <span class="glyphicon glyphicon-exclamation-sign text-danger" aria-hidden="true"></span> 0
+<strong>Checks:</strong> <span class="glyphicon glyphicon-ok text-success" aria-hidden="true"></span> 1 <span class="glyphicon glyphicon-exclamation-sign text-danger" aria-hidden="true"></span> 1
 </p>
 <p>
 <strong>Knit directory:</strong> <code>SoilID.Testing/</code> <span class="glyphicon glyphicon-question-sign" aria-hidden="true" title="This is the local directory in which the code in this file was executed."> </span>
@@ -346,22 +346,22 @@ This reproducible <a href="http://rmarkdown.rstudio.com">R Markdown</a> analysis
 <div class="panel panel-default">
 <div class="panel-heading">
 <p class="panel-title">
-<a data-toggle="collapse" data-parent="#workflowr-checks" href="#strongRMarkdownfilestronguptodate"> <span class="glyphicon glyphicon-ok text-success" aria-hidden="true"></span> <strong>R Markdown file:</strong> up-to-date </a>
+<a data-toggle="collapse" data-parent="#workflowr-checks" href="#strongRMarkdownfilestronguncommittedchanges"> <span class="glyphicon glyphicon-exclamation-sign text-danger" aria-hidden="true"></span> <strong>R Markdown file:</strong> uncommitted changes </a>
 </p>
 </div>
-<div id="strongRMarkdownfilestronguptodate" class="panel-collapse collapse">
+<div id="strongRMarkdownfilestronguncommittedchanges" class="panel-collapse collapse">
 <div class="panel-body">
-<p>Great! Since the R Markdown file has been committed to the Git repository, you know the exact version of the code that produced these results.</p>
+<p>The R Markdown file has unstaged changes. To know which version of the R Markdown file created these results, you’ll want to first commit it to the Git repo. If you’re still working on the analysis, you can ignore this warning. When you’re finished, you can run <code>wflow_publish</code> to commit the R Markdown file and build the HTML.</p>
 </div>
 </div>
 </div>
 <div class="panel panel-default">
 <div class="panel-heading">
 <p class="panel-title">
-<a data-toggle="collapse" data-parent="#workflowr-checks" href="#strongRepositoryversionstrongahrefhttpsgithubcomjjmaynardSoilIDTestingtree0b38475ed524865c477af3190836dda263e2e9a8targetblank0b38475a"> <span class="glyphicon glyphicon-ok text-success" aria-hidden="true"></span> <strong>Repository version:</strong> <a href="https://github.com/jjmaynard/SoilID.Testing/tree/0b38475ed524865c477af3190836dda263e2e9a8" target="_blank">0b38475</a> </a>
+<a data-toggle="collapse" data-parent="#workflowr-checks" href="#strongRepositoryversionstrongahrefhttpsgithubcomjjmaynardSoilIDTestingtreef0970b0ff3aeffa6d0449ff9563667e3e19f544ctargetblankf0970b0a"> <span class="glyphicon glyphicon-ok text-success" aria-hidden="true"></span> <strong>Repository version:</strong> <a href="https://github.com/jjmaynard/SoilID.Testing/tree/f0970b0ff3aeffa6d0449ff9563667e3e19f544c" target="_blank">f0970b0</a> </a>
 </p>
 </div>
-<div id="strongRepositoryversionstrongahrefhttpsgithubcomjjmaynardSoilIDTestingtree0b38475ed524865c477af3190836dda263e2e9a8targetblank0b38475a" class="panel-collapse collapse">
+<div id="strongRepositoryversionstrongahrefhttpsgithubcomjjmaynardSoilIDTestingtreef0970b0ff3aeffa6d0449ff9563667e3e19f544ctargetblankf0970b0a" class="panel-collapse collapse">
 <div class="panel-body">
 <p>
 Great! You are using Git for version control. Tracking code development and connecting the code version to the results is critical for reproducibility. The version displayed above was the version of the Git repository at the time these results were generated. <br><br> Note that you need to be careful to ensure that all relevant files for the analysis have been committed to Git prior to generating the results (you can use <code>wflow_publish</code> or <code>wflow_git_commit</code>). workflowr only checks the R Markdown file, but you know if there are other scripts or data files that it depends on. Below is the status of the Git repository when the results were generated:
@@ -370,67 +370,14 @@ Great! You are using Git for version control. Tracking code development and conn
 Ignored files:
     Ignored:    .Rhistory
     Ignored:    .Rproj.user/
+    Ignored:    code/private/
     Ignored:    data/derived_data/private/
+    Ignored:    data/raw_data/private/
     Ignored:    proj_setup/
-
-Untracked files:
-    Untracked:  code/API_Random_Sample_Testing.Rmd
-    Untracked:  code/API_Random_Sample_Testing.nb.html
-    Untracked:  code/Generate_Global_Random_Sample.Rmd
-    Untracked:  code/Generate_Global_Random_Sample.nb.html
-    Untracked:  code/Global_pedon_id_match.RDS
-    Untracked:  code/Global_pedon_id_prob_sample.RDS
-    Untracked:  code/Global_pedon_test_dataset.RDS
-    Untracked:  code/KSSL_soilidrank_final.RDS
-    Untracked:  code/NASIS_Master_testdata.Rda
-    Untracked:  code/NASIS_Master_testdata_70P.Rda
-    Untracked:  code/SoilID_Global.RData
-    Untracked:  code/SoilID_data_mismatch.rds
-    Untracked:  code/Soil_ID_Testing.RData
-    Untracked:  code/Soil_ID_Testing_KSSL.RData
-    Untracked:  code/Soil_ID_testing.Rmd
-    Untracked:  code/Soil_ID_testing.nb.html
-    Untracked:  code/Soil_ID_testing_Global.Rmd
-    Untracked:  code/Soil_ID_testing_Global.nb.html
-    Untracked:  code/Soil_ID_testing_KSSL.Rmd
-    Untracked:  code/Soil_ID_testing_KSSL.nb.html
-    Untracked:  code/Soil_ID_testing_US.Rmd
-    Untracked:  code/Soil_ID_testing_US.nb.html
-    Untracked:  code/US_KSSL_pedon_compType.rds
-    Untracked:  code/US_KSSL_pedon_id_prob_sample.RDS
-    Untracked:  code/US_SoilID_Error_Checing.Rmd
-    Untracked:  code/US_SoilID_Error_Checing.nb.html
-    Untracked:  code/US_SoilID_KSSL.rds
-    Untracked:  code/US_SoilID_KSSL_LPKS.rds
-    Untracked:  code/US_SoilID_KSSL_diagft.rds
-    Untracked:  code/US_SoilID_soilIDList_error_testing.Rmd
-    Untracked:  code/US_SoilID_soilIDList_error_testing.nb.html
-    Untracked:  code/old_code/
-    Untracked:  data/derived_data/API_Random_Sample_Testing.Rdata
-    Untracked:  data/derived_data/API_Random_Sample_Testing_API-V1_03-03-20.Rdata
-    Untracked:  data/derived_data/Global_Pedon_Test_Data.RData
-    Untracked:  data/derived_data/Int_Pedon_Test_Data.RData
-    Untracked:  data/derived_data/US_Pedon_Test_Data.RData
-    Untracked:  data/derived_data/US_SoilID_Testing.rds
-    Untracked:  data/derived_data/US_SoilID_Testing_IndProb.rds
-    Untracked:  data/derived_data/US_SoilID_Testing_IndProb2.rds
-    Untracked:  data/derived_data/US_SoilID_Testing_V1.Rds
-    Untracked:  data/derived_data/US_SoilID_Testing_V2.Rds
-    Untracked:  data/derived_data/getSoilLocationBasedUS.rds
-    Untracked:  data/derived_data/getSoilLocationBasedUS_querry_time.rds
-    Untracked:  data/raw_data/
-    Untracked:  results/
+    Ignored:    results/figures/
 
 Unstaged changes:
-    Modified:   .gitignore
-    Deleted:    manuscript/paper/paper.Rmd
-    Deleted:    manuscript/paper/references.bib
-    Deleted:    manuscript/templates/author-info-blocks.lua
-    Deleted:    manuscript/templates/journal-of-archaeological-science.csl
-    Deleted:    manuscript/templates/pagebreak.lua
-    Deleted:    manuscript/templates/scholarly-metadata.lua
-    Deleted:    manuscript/templates/template.Rmd
-    Deleted:    manuscript/templates/template.docx
+    Modified:   analysis/index.Rmd
 
 </code></pre>
 <p>
@@ -461,13 +408,8 @@ There are no past versions. Publish this analysis with <code>wflow_publish()</co
 <ol style="list-style-type: lower-alpha">
 <li>Random sample
 <ol style="list-style-type: lower-roman">
-<li>US: 2,500 random locations generated across US</li>
-<li>Global: ??</li>
-</ol></li>
-<li>Pedon test datasets
-<ol style="list-style-type: lower-roman">
-<li>US: 3,986 KSSL locations</li>
-<li>Global: 1,183 (WISE and AfSIS)</li>
+<li>US: 3,000 random locations generated across US, 500 of which are in NOTCOM areas (i.e., areas without SSURGO coverage and infilled with STATSGO)</li>
+<li>Global: 3,000 random locations generated across globe excluding the US and its territories.</li>
 </ol></li>
 </ol></li>
 <li>soilIDrank
@@ -478,32 +420,40 @@ There are no past versions. Publish this analysis with <code>wflow_publish()</co
 <ol style="list-style-type: decimal">
 <li>All data</li>
 <li>Slope only (US testing)</li>
-<li>All data - missing surface depth</li>
-<li>All data - missing sub-surface depth</li>
-<li>Subset of properties
-<ol start="2" style="list-style-type: lower-alpha">
-<li>Pedon test datasets (represent complete profiles with all data)
-<ol style="list-style-type: lower-roman">
-<li>Complete data</li>
-<li>Subset of depths</li>
-<li>Subset of properties</li>
+<li>All data - only surface depth (i.e., 1-10)</li>
+<li>All data - only sub-surface depth (i.e., 20-50)</li>
+<li>Subset of properties (500 sample random subset)
+<ul>
+<li>Texture only</li>
+<li>all depths</li>
+<li>only surface depth (i.e., 0-1)</li>
+<li>only sub-surface depth (i.e., 20-50)</li>
+<li>Rock frags</li>
+<li>all depths</li>
+<li>only surface depth (i.e., 0-1)</li>
+<li>only sub-surface depth (i.e., 20-50)</li>
+<li>Color</li>
+<li>all depths</li>
+<li>only surface depth (i.e., 0-1)</li>
+<li>only sub-surface depth (i.e., 20-50)<br />
+</li>
+</ul></li>
+<li>Mix of properties and depths
+<ul>
+<li>Texture surface depth (i.e., 0-1) only, color sub-surface depth (i.e., 20-50) only</li>
+<li>Color surface depth (i.e., 0-1) only, rock fragments sub-surface depth (i.e., 20-50) only</li>
+</ul></li>
+<li>Cracking test dataset (US and Global points where vertisols are found)
+<ul>
+<li>All data with user identified clay and cracking</li>
+<li>All data without user identified clay or cracking</li>
+<li>All data - cracking only</li>
+<li>All data - user clay only</li>
+<li>Cracking only - not texture information</li>
+<li>Texture w/ user clay but cracking not specified</li>
+</ul></li>
 </ol></li>
 </ol></li>
-</ol></li>
-</ol></li>
-</ol></li>
-</ol>
-<p>Stage 2: Code validation – assess and improve accuracy</p>
-<ol style="list-style-type: decimal">
-<li>soilIDlist: simple location-based ranking
-<ol style="list-style-type: lower-alpha">
-<li>Possible improvements based on optimized exponential decay function.</li>
-</ol></li>
-<li>soilIDRank: Gower’s generalized dissimilarity metric
-<ol style="list-style-type: lower-alpha">
-<li>Incorporate texture class and rock fragment class as ordinal values</li>
-<li>Profile specific attributes</li>
-<li>Optimize location weighting of data dissimilarity</li>
 </ol></li>
 </ol>
 

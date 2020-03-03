@@ -18,31 +18,39 @@ Stage 1: Code error testing – ensure proper functioning of code given diversit
 
 1.	soilIDlist
     a.	Random sample
-        i.	US: 2,500 random locations generated across US
-        ii.	Global: ??
-    b.	Pedon test datasets
-        i.	US: 3,986 KSSL locations
-        ii.	Global: 1,183 (WISE and AfSIS)
+        i.	US: 3,000 random locations generated across US, 500 of which are in NOTCOM areas (i.e., areas without SSURGO coverage and infilled with STATSGO)
+        ii.	Global: 3,000 random locations generated across globe excluding the US and its territories.
+
 2.	soilIDrank
     a.	Random sample (US & Global)
         i.	Test random points using a dummy dataset that contains different degrees of data completeness.
         
-            1.	 All data
+            1.	All data
             2.	Slope only (US testing)
-            3.	All data - missing surface depth
-            4.	All data - missing sub-surface depth
-            5.	Subset of properties
-                b.	Pedon test datasets (represent complete profiles with all data)
-                    i.	Complete data
-                    ii.	Subset of depths
-                    iii.	Subset of properties
+            3.	All data - only surface depth (i.e., 1-10)
+            4.	All data - only sub-surface depth (i.e., 20-50)
+            5.  Subset of properties (500 sample random subset)
+                + Texture only
+                + all depths
+                + only surface depth (i.e., 0-1)
+                + only sub-surface depth (i.e., 20-50)
+                + Rock frags
+                + all depths
+                + only surface depth (i.e., 0-1)
+                + only sub-surface depth (i.e., 20-50)
+                + Color
+                + all depths
+                + only surface depth (i.e., 0-1)
+                + only sub-surface depth (i.e., 20-50)  
+            6.  Mix of properties and depths
+                + Texture surface depth (i.e., 0-1) only, color sub-surface depth (i.e., 20-50) only
+                + Color surface depth (i.e., 0-1) only, rock fragments sub-surface depth (i.e., 20-50) only
+            7.  Cracking test dataset (US and Global points where vertisols are found)
+                + All data with user identified clay and cracking
+                + All data without user identified clay or cracking
+                + All data - cracking only
+                + All data - user clay only
+                + Cracking only - not texture information
+                + Texture w/ user clay but cracking not specified
 
-Stage 2: Code validation -- assess and improve accuracy
-
-1.	soilIDlist: simple location-based ranking
-    a.	Possible improvements based on optimized exponential decay function.
-2.	soilIDRank: Gower’s generalized dissimilarity metric
-    a.	Incorporate texture class and rock fragment class as ordinal values
-    b.	Profile specific attributes
-    c.	Optimize location weighting of data dissimilarity
 
