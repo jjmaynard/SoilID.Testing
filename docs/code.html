@@ -327,10 +327,10 @@ div.section {
 <div class="tab-content">
 <div id="summary" class="tab-pane fade in active">
 <p>
-<strong>Last updated:</strong> 2020-02-14
+<strong>Last updated:</strong> 2020-03-03
 </p>
 <p>
-<strong>Checks:</strong> <span class="glyphicon glyphicon-ok text-success" aria-hidden="true"></span> 2 <span class="glyphicon glyphicon-exclamation-sign text-danger" aria-hidden="true"></span> 0
+<strong>Checks:</strong> <span class="glyphicon glyphicon-ok text-success" aria-hidden="true"></span> 7 <span class="glyphicon glyphicon-exclamation-sign text-danger" aria-hidden="true"></span> 0
 </p>
 <p>
 <strong>Knit directory:</strong> <code>SoilID.Testing/</code> <span class="glyphicon glyphicon-question-sign" aria-hidden="true" title="This is the local directory in which the code in this file was executed."> </span>
@@ -358,10 +358,70 @@ This reproducible <a href="http://rmarkdown.rstudio.com">R Markdown</a> analysis
 <div class="panel panel-default">
 <div class="panel-heading">
 <p class="panel-title">
-<a data-toggle="collapse" data-parent="#workflowr-checks" href="#strongRepositoryversionstrongahrefhttpsgithubcomjjmaynardSoilIDTestingtreeed880445537e491eaf1ee5d9eae45cf496e2f82dtargetblanked88044a"> <span class="glyphicon glyphicon-ok text-success" aria-hidden="true"></span> <strong>Repository version:</strong> <a href="https://github.com/jjmaynard/SoilID.Testing/tree/ed880445537e491eaf1ee5d9eae45cf496e2f82d" target="_blank">ed88044</a> </a>
+<a data-toggle="collapse" data-parent="#workflowr-checks" href="#strongEnvironmentstrongempty"> <span class="glyphicon glyphicon-ok text-success" aria-hidden="true"></span> <strong>Environment:</strong> empty </a>
 </p>
 </div>
-<div id="strongRepositoryversionstrongahrefhttpsgithubcomjjmaynardSoilIDTestingtreeed880445537e491eaf1ee5d9eae45cf496e2f82dtargetblanked88044a" class="panel-collapse collapse">
+<div id="strongEnvironmentstrongempty" class="panel-collapse collapse">
+<div class="panel-body">
+<p>Great job! The global environment was empty. Objects defined in the global environment can affect the analysis in your R Markdown file in unknown ways. For reproduciblity it’s best to always run the code in an empty environment.</p>
+</div>
+</div>
+</div>
+<div class="panel panel-default">
+<div class="panel-heading">
+<p class="panel-title">
+<a data-toggle="collapse" data-parent="#workflowr-checks" href="#strongSeedstrongcodesetseed20200214code"> <span class="glyphicon glyphicon-ok text-success" aria-hidden="true"></span> <strong>Seed:</strong> <code>set.seed(20200214)</code> </a>
+</p>
+</div>
+<div id="strongSeedstrongcodesetseed20200214code" class="panel-collapse collapse">
+<div class="panel-body">
+<p>The command <code>set.seed(20200214)</code> was run prior to running the code in the R Markdown file. Setting a seed ensures that any results that rely on randomness, e.g. subsampling or permutations, are reproducible.</p>
+</div>
+</div>
+</div>
+<div class="panel panel-default">
+<div class="panel-heading">
+<p class="panel-title">
+<a data-toggle="collapse" data-parent="#workflowr-checks" href="#strongSessioninformationstrongrecorded"> <span class="glyphicon glyphicon-ok text-success" aria-hidden="true"></span> <strong>Session information:</strong> recorded </a>
+</p>
+</div>
+<div id="strongSessioninformationstrongrecorded" class="panel-collapse collapse">
+<div class="panel-body">
+<p>Great job! Recording the operating system, R version, and package versions is critical for reproducibility.</p>
+</div>
+</div>
+</div>
+<div class="panel panel-default">
+<div class="panel-heading">
+<p class="panel-title">
+<a data-toggle="collapse" data-parent="#workflowr-checks" href="#strongCachestrongnone"> <span class="glyphicon glyphicon-ok text-success" aria-hidden="true"></span> <strong>Cache:</strong> none </a>
+</p>
+</div>
+<div id="strongCachestrongnone" class="panel-collapse collapse">
+<div class="panel-body">
+<p>Nice! There were no cached chunks for this analysis, so you can be confident that you successfully produced the results during this run.</p>
+</div>
+</div>
+</div>
+<div class="panel panel-default">
+<div class="panel-heading">
+<p class="panel-title">
+<a data-toggle="collapse" data-parent="#workflowr-checks" href="#strongFilepathsstrongrelative"> <span class="glyphicon glyphicon-ok text-success" aria-hidden="true"></span> <strong>File paths:</strong> relative </a>
+</p>
+</div>
+<div id="strongFilepathsstrongrelative" class="panel-collapse collapse">
+<div class="panel-body">
+<p>Great job! Using relative paths to the files within your workflowr project makes it easier to run your code on other machines.</p>
+</div>
+</div>
+</div>
+<div class="panel panel-default">
+<div class="panel-heading">
+<p class="panel-title">
+<a data-toggle="collapse" data-parent="#workflowr-checks" href="#strongRepositoryversionstrongahrefhttpsgithubcomjjmaynardSoilIDTestingtree0b38475ed524865c477af3190836dda263e2e9a8targetblank0b38475a"> <span class="glyphicon glyphicon-ok text-success" aria-hidden="true"></span> <strong>Repository version:</strong> <a href="https://github.com/jjmaynard/SoilID.Testing/tree/0b38475ed524865c477af3190836dda263e2e9a8" target="_blank">0b38475</a> </a>
+</p>
+</div>
+<div id="strongRepositoryversionstrongahrefhttpsgithubcomjjmaynardSoilIDTestingtree0b38475ed524865c477af3190836dda263e2e9a8targetblank0b38475a" class="panel-collapse collapse">
 <div class="panel-body">
 <p>
 Great! You are using Git for version control. Tracking code development and connecting the code version to the results is critical for reproducibility. The version displayed above was the version of the Git repository at the time these results were generated. <br><br> Note that you need to be careful to ensure that all relevant files for the analysis have been committed to Git prior to generating the results (you can use <code>wflow_publish</code> or <code>wflow_git_commit</code>). workflowr only checks the R Markdown file, but you know if there are other scripts or data files that it depends on. Below is the status of the Git repository when the results were generated:
@@ -370,19 +430,67 @@ Great! You are using Git for version control. Tracking code development and conn
 Ignored files:
     Ignored:    .Rhistory
     Ignored:    .Rproj.user/
-    Ignored:    data/raw_data/
-    Ignored:    manuscript/figures/
+    Ignored:    data/derived_data/private/
     Ignored:    proj_setup/
 
 Untracked files:
-    Untracked:  code/API_Global_SoilID_Testing.Rmd
-    Untracked:  code/API_Global_SoilID_Testing.nb.html
-    Untracked:  code/Int_Soil_Testing.Rmd
-    Untracked:  code/Int_Soil_Testing.nb.html
-    Untracked:  code/Mawali_Global_SoilID_Testing.Rmd
-    Untracked:  code/Mawali_Global_SoilID_Testing.nb.html
-    Untracked:  code/US_Soil_Testing.Rmd
-    Untracked:  code/US_Soil_Testing.nb.html
+    Untracked:  code/API_Random_Sample_Testing.Rmd
+    Untracked:  code/API_Random_Sample_Testing.nb.html
+    Untracked:  code/Generate_Global_Random_Sample.Rmd
+    Untracked:  code/Generate_Global_Random_Sample.nb.html
+    Untracked:  code/Global_pedon_id_match.RDS
+    Untracked:  code/Global_pedon_id_prob_sample.RDS
+    Untracked:  code/Global_pedon_test_dataset.RDS
+    Untracked:  code/KSSL_soilidrank_final.RDS
+    Untracked:  code/NASIS_Master_testdata.Rda
+    Untracked:  code/NASIS_Master_testdata_70P.Rda
+    Untracked:  code/SoilID_Global.RData
+    Untracked:  code/SoilID_data_mismatch.rds
+    Untracked:  code/Soil_ID_Testing.RData
+    Untracked:  code/Soil_ID_Testing_KSSL.RData
+    Untracked:  code/Soil_ID_testing.Rmd
+    Untracked:  code/Soil_ID_testing.nb.html
+    Untracked:  code/Soil_ID_testing_Global.Rmd
+    Untracked:  code/Soil_ID_testing_Global.nb.html
+    Untracked:  code/Soil_ID_testing_KSSL.Rmd
+    Untracked:  code/Soil_ID_testing_KSSL.nb.html
+    Untracked:  code/Soil_ID_testing_US.Rmd
+    Untracked:  code/Soil_ID_testing_US.nb.html
+    Untracked:  code/US_KSSL_pedon_compType.rds
+    Untracked:  code/US_KSSL_pedon_id_prob_sample.RDS
+    Untracked:  code/US_SoilID_Error_Checing.Rmd
+    Untracked:  code/US_SoilID_Error_Checing.nb.html
+    Untracked:  code/US_SoilID_KSSL.rds
+    Untracked:  code/US_SoilID_KSSL_LPKS.rds
+    Untracked:  code/US_SoilID_KSSL_diagft.rds
+    Untracked:  code/US_SoilID_soilIDList_error_testing.Rmd
+    Untracked:  code/US_SoilID_soilIDList_error_testing.nb.html
+    Untracked:  code/old_code/
+    Untracked:  data/derived_data/API_Random_Sample_Testing.Rdata
+    Untracked:  data/derived_data/API_Random_Sample_Testing_API-V1_03-03-20.Rdata
+    Untracked:  data/derived_data/Global_Pedon_Test_Data.RData
+    Untracked:  data/derived_data/Int_Pedon_Test_Data.RData
+    Untracked:  data/derived_data/US_Pedon_Test_Data.RData
+    Untracked:  data/derived_data/US_SoilID_Testing.rds
+    Untracked:  data/derived_data/US_SoilID_Testing_IndProb.rds
+    Untracked:  data/derived_data/US_SoilID_Testing_IndProb2.rds
+    Untracked:  data/derived_data/US_SoilID_Testing_V1.Rds
+    Untracked:  data/derived_data/US_SoilID_Testing_V2.Rds
+    Untracked:  data/derived_data/getSoilLocationBasedUS.rds
+    Untracked:  data/derived_data/getSoilLocationBasedUS_querry_time.rds
+    Untracked:  data/raw_data/
+    Untracked:  results/
+
+Unstaged changes:
+    Modified:   .gitignore
+    Deleted:    manuscript/paper/paper.Rmd
+    Deleted:    manuscript/paper/references.bib
+    Deleted:    manuscript/templates/author-info-blocks.lua
+    Deleted:    manuscript/templates/journal-of-archaeological-science.csl
+    Deleted:    manuscript/templates/pagebreak.lua
+    Deleted:    manuscript/templates/scholarly-metadata.lua
+    Deleted:    manuscript/templates/template.Rmd
+    Deleted:    manuscript/templates/template.docx
 
 </code></pre>
 <p>
@@ -402,7 +510,899 @@ There are no past versions. Publish this analysis with <code>wflow_publish()</co
 </div>
 </div>
 </div>
-<p>Describe your project.</p>
+<div id="soilid-algorithm-testing" class="section level1">
+<h1>SoilID Algorithm Testing</h1>
+<p>This notebook outlines the code used to perform error testing of the SoilID code. This checks for coding errors (i.e., does the code run correctly using all possible combinations of inputs data). This code does not perform any validation of the code (i.e., how accurate is the code in predicting the correct soil) but rather uses ‘dummy data’ to run the soilIDrank algorithm.</p>
+<div id="error-testing-ensure-proper-functioning-of-soilid-algorithms" class="section level3">
+<h3>Error testing – ensure proper functioning of SoilID algorithms</h3>
+<p>SoilID consists of two main algorithms:</p>
+<ul>
+<li>soilIDlist – calcualtes the location-based (GPS) soil component ranking</li>
+<li>soilIDrank – uses LandInfo soil data to calculate the statistical distance between soil profiles using Gower’s Generalized Dissimilarity metric</li>
+</ul>
+<p>These two algorithms are implimentation separately for all areas in the US (US-SoilID) and all areas outside of the US (Global-SoilID), with slight differences in the algorthim code to accomodate differences in the structure of the SSURGO and HWSD soil databases.</p>
+<p>The first sections of code run the ‘soilIDlist’ function for both US-SoilID and Global-SoilID, saving the data for each test case in a MySQL database. Once this code is successfully run with errors, the saved data in the MySQL database is later used by the ‘soilIDrank’ algorithm to calculate the profile dissimilarity scores and component data rankings.</p>
+</div>
+<div id="initial-setup-of-local-flask-api-for-testing" class="section level3">
+<h3>Initial setup of local FLASK api for testing:</h3>
+<ol style="list-style-type: decimal">
+<li>Open Ubuntu LTS</li>
+<li>Navigate to API folder
+<ul>
+<li>cd /mnt/c/LandPKS_API_SoilID-master</li>
+</ul></li>
+<li>Activate virtual environment:
+<ul>
+<li>source venv/bin/activate</li>
+</ul></li>
+<li>Start MySQL
+<ul>
+<li>sudo service mysql start</li>
+</ul></li>
+<li>Set FLASK development environment
+<ul>
+<li>export FLASK_ENV=development</li>
+</ul></li>
+<li>Start FLASK api
+<ul>
+<li>python -m flask run</li>
+</ul></li>
+</ol>
+</div>
+<div id="load-r-packages-and-register-cores" class="section level3">
+<h3>Load R packages and register cores</h3>
+<pre class="r"><code># set libary path
+required.packages &lt;- c(&quot;sf&quot;, &quot;readr&quot;, &quot;dplyr&quot;, &quot;tidyr&quot;, &quot;purrr&quot;, &quot;reticulate&quot;, &quot;Rcpp&quot;, &quot;foreach&quot;, &quot;stringr&quot;, &quot;tcltk&quot;, &quot;utils&quot;, &quot;iterators&quot;, &quot;httr&quot;, &quot;jsonlite&quot;, &quot;doParallel&quot;, &quot;here&quot;, &quot;snow&quot;)
+new.packages &lt;- required.packages[!(required.packages %in% installed.packages()[,&quot;Package&quot;])]
+
+if (length(new.packages)) install.packages(new.packages)
+lapply(required.packages, require, character.only = T)
+rm(required.packages, new.packages)
+
+no_cores &lt;- detectCores() - 1
+cl &lt;- makeCluster(no_cores, type = &quot;SOCK&quot;, outfile = &quot;&quot;)
+registerDoParallel(cl)
+getDoParWorkers()
+# options(stringsAsFactors = FALSE)
+# stopCluster(cl)</code></pre>
+<div id="this-loads-saved-data-from-the-previous-run-of-all-processing-steps-in-code-chunks-below.-if-testing-new-code-ignore-this-step." class="section level4">
+<h4>This loads saved data from the previous run of all processing steps in code chunks below. If testing new code, ignore this step.</h4>
+<pre class="r"><code># load(here(&quot;/data/derived_data/API_Random_Sample_Testing.Rdata&quot;))</code></pre>
+<p> </p>
+</div>
+</div>
+<div id="load-global-and-us-random-test-datasets-and-assign-plot_id" class="section level3">
+<h3>Load global and us random test datasets and assign plot_id</h3>
+<ul>
+<li>Global test dataset contains 3,000 random points within HWSD but excluding areas within the US</li>
+<li>US test dataset contains 3,000 random points, 500 of which are in NOTCOM areas which default to a query of the STATSGO database</li>
+</ul>
+<pre class="r"><code>global_random_sample &lt;- readRDS(here(&quot;/data/raw_data/Global_random_sample.rds&quot;))
+us_random_sample &lt;- readRDS(here(&quot;/data/raw_data/US_random_sample.rds&quot;))
+us_notcom_random_sample &lt;- readRDS(here(&quot;/data/raw_data/US_NOTCOM_random_sample.rds&quot;))
+
+# Assign plot numbers so that soilIDList results can be saved in MySQL database
+
+# Global: 1:3000
+glb_random_sample_xy &lt;- do.call(rbind, st_geometry(global_random_sample)) %&gt;%
+  as.data.frame() %&gt;%
+  setNames(c(&quot;lon&quot;, &quot;lat&quot;)) %&gt;%
+  mutate(plot_id = seq(1, nrow(global_random_sample)))
+
+# US: 3001:6000
+us_random_sample_xy &lt;- do.call(rbind, st_geometry(us_random_sample)) %&gt;%
+  as.data.frame() %&gt;%
+  setNames(c(&quot;lon&quot;, &quot;lat&quot;)) %&gt;%
+  mutate(plot_id = seq(3001, 3000 + nrow(us_random_sample)))
+
+us_notcom_random_sample_xy &lt;- do.call(rbind, st_geometry(us_notcom_random_sample)) %&gt;%
+  as.data.frame() %&gt;%
+  setNames(c(&quot;lon&quot;, &quot;lat&quot;)) %&gt;%
+  mutate(plot_id = seq(5501, 5500 + nrow(us_notcom_random_sample)))
+us_random_sample_xy &lt;- bind_rows(us_random_sample_xy, us_notcom_random_sample_xy)</code></pre>
+<p> </p>
+</div>
+<div id="soilidlist-api-testing" class="section level2">
+<h2>soilIDList API Testing</h2>
+<div id="run-soilidlist-api-testing-on-the-global-and-us-random-test-datasets" class="section level3">
+<h3>Run soilIDList API Testing on the Global and US random test datasets</h3>
+</div>
+<div id="soilidlist-api-testing-global-random-sample" class="section level3">
+<h3>1. soilIDList API Testing: Global random sample</h3>
+<pre class="r"><code># Global random sample
+global_test_list &lt;- unique(glb_random_sample_xy$plot_id)
+Global.random.soilIDList.API &lt;- list(list())
+
+# Progress combine function
+n &lt;- length(global_test_list)
+pb &lt;- txtProgressBar(min = 1, max = n, style = 3)
+
+stime &lt;- system.time({
+  Global.random.soilIDList.API &lt;- foreach(i = 1:length(global_test_list), .packages = c(&quot;stringr&quot;, &quot;dplyr&quot;, &quot;tidyr&quot;, &quot;XML&quot;, &quot;reticulate&quot;, &quot;purrr&quot;, &quot;jsonlite&quot;)) %dopar% {
+    setTxtProgressBar(pb, i)
+    tryCatch(
+      {
+        pedon &lt;- glb_random_sample_xy[i, ]
+        lon &lt;- as.numeric(unique(pedon$lon))
+        lat &lt;- as.numeric(unique(pedon$lat))
+        plot_id &lt;- as.numeric(unique(pedon$plot_id))
+        base.url.list &lt;- &quot;http://127.0.0.1:5000/api/v1/soilidlist?&quot;
+        url.list &lt;- paste0(base.url.list, &quot;longitude=&quot;, lon, &quot;&amp;latitude=&quot;, lat, &quot;&amp;plot_id=&quot;, plot_id)
+        querry_time &lt;- system.time({
+          result_list &lt;- possibly(fromJSON, &quot;Failed&quot;)(url.list, simplifyDataFrame = FALSE)
+        })[3]
+        Global.random.soilIDList.API[[i]] &lt;- result_list[[1]][[1]][[1]][[1]]
+      },
+      error = function(e) {
+        cat(&quot;ERROR :&quot;, conditionMessage(e), &quot;\n&quot;)
+      }
+    )
+  }
+  close(pb)
+})[3]
+stime
+# 38 mins to run
+Global.random.soilIDList.API[sapply(Global.random.soilIDList.API, is.null)] &lt;- NA
+Global.random.soilIDList.API.df &lt;- unlist(Global.random.soilIDList.API)
+# No Global test points failed
+Global_failed &lt;- which(Global.random.soilIDList.API.df == &quot;Failed&quot;)</code></pre>
+</div>
+<div id="soilidlist-api-testing-us-random-sample" class="section level3">
+<h3>2. soilIDList API Testing: US random sample</h3>
+<pre class="r"><code># -----------------------------------------------------------------------------------------------
+# US random sample
+us_test_list &lt;- unique(us_random_sample_xy$plot_id)
+US.random.soilIDList.API &lt;- list(list())
+
+# Progress combine function
+n &lt;- length(us_test_list)
+pb &lt;- txtProgressBar(min = 1, max = n, style = 3)
+
+stime &lt;- system.time({
+  US.random.soilIDList.API &lt;- foreach(i = 1:length(us_test_list), .packages = c(&quot;stringr&quot;, &quot;dplyr&quot;, &quot;tidyr&quot;, &quot;XML&quot;, &quot;reticulate&quot;, &quot;purrr&quot;, &quot;jsonlite&quot;)) %dopar% {
+    setTxtProgressBar(pb, i)
+    tryCatch(
+      {
+        pedon &lt;- us_random_sample_xy[i, ]
+        lon &lt;- as.numeric(unique(pedon$lon))
+        lat &lt;- as.numeric(unique(pedon$lat))
+        plot_id &lt;- as.numeric(unique(pedon$plot_id))
+        base.url.list &lt;- &quot;http://127.0.0.1:5000/api/v1/soilidlist?&quot;
+        url.list &lt;- paste0(base.url.list, &quot;longitude=&quot;, lon, &quot;&amp;latitude=&quot;, lat, &quot;&amp;plot_id=&quot;, plot_id)
+        querry_time &lt;- system.time({
+          result_list &lt;- possibly(fromJSON, &quot;Failed&quot;)(url.list, simplifyDataFrame = FALSE)
+        })[3]
+        US.random.soilIDList.API[[i]] &lt;- result_list[[1]][[1]][[1]][[1]]
+      },
+      error = function(e) {
+        cat(&quot;ERROR :&quot;, conditionMessage(e), &quot;\n&quot;)
+      }
+    )
+  }
+  close(pb)
+})[3]
+stime
+# 3.77 hrs (226 mins)
+US.random.soilIDList.API[sapply(US.random.soilIDList.API, is.null)] &lt;- NA
+US.random.soilIDList.API.df &lt;- unlist(US.random.soilIDList.API)
+failed &lt;- which(US.random.soilIDList.API.df == &quot;Failed&quot;) # 53 sites failed
+
+
+
+# Re-process failed tests
+# Failed tests typically resulted from a SoilWeb API timeout. After re-running these, they eventually completed successfully.
+
+# #Progress combine function
+# n &lt;- length(failed)
+# pb &lt;- txtProgressBar(min = 1, max = n, style=3)
+# US.random.soilIDList.API2 &lt;- list(list())
+# stime &lt;- system.time({
+# US.random.soilIDList.API2 &lt;- foreach(i= 1:length(failed), .packages = c(&quot;stringr&quot;, &quot;dplyr&quot;, &quot;tidyr&quot;, &quot;XML&quot;, &quot;reticulate&quot;, &quot;purrr&quot;, &quot;jsonlite&quot;)) %do% {
+#   setTxtProgressBar(pb, i)
+#   tryCatch({
+#       pedon &lt;- us_random_sample_xy[failed[i],]
+#       lon=as.numeric(unique(pedon$lon))
+#       lat=as.numeric(unique(pedon$lat))
+#       plot_id = as.numeric(unique(pedon$plot_id))
+#       base.url.list &lt;-&quot;http://127.0.0.1:5000/api/v1/soilidlist?&quot;
+#       url.list &lt;- paste0(base.url.list, &quot;longitude=&quot;, lon, &quot;&amp;latitude=&quot;, lat, &quot;&amp;plot_id=&quot;, plot_id)
+#       querry_time &lt;- system.time({
+#       result_list &lt;- possibly(fromJSON, &quot;Failed&quot;)(url.list, simplifyDataFrame = FALSE)
+#       })[3]
+#       US.random.soilIDList.API2[i] &lt;- result_list[[1]][[1]][[1]][[1]]
+#
+#     }, error=function(e){cat(&quot;ERROR :&quot;,conditionMessage(e), &quot;\n&quot;)})
+# }
+# close(pb)
+# })[3]
+# stime
+#
+# US.random.soilIDList.API2[sapply(US.random.soilIDList.API2, is.null)] &lt;- NA
+# US.random.soilIDList.API2.df &lt;- unlist(US.random.soilIDList.API2)
+# failed2 &lt;- which(US.random.soilIDList.API2.df==&quot;Failed&quot;)
+#
+#
+# #Progress combine function
+# n &lt;- length(failed2)
+# pb &lt;- txtProgressBar(min = 1, max = n, style=3)
+# US.random.soilIDList.API3 &lt;- list(list())
+# stime &lt;- system.time({
+# US.random.soilIDList.API3 &lt;- foreach(i= 1:length(failed2), .packages = c(&quot;stringr&quot;, &quot;dplyr&quot;, &quot;tidyr&quot;, &quot;XML&quot;, &quot;reticulate&quot;, &quot;purrr&quot;, &quot;jsonlite&quot;)) %dopar% {
+#   setTxtProgressBar(pb, i)
+#   tryCatch({
+#       pedon &lt;- us_random_sample_xy[failed2[i],]
+#       lon=as.numeric(unique(pedon$lon))
+#       lat=as.numeric(unique(pedon$lat))
+#       plot_id = as.numeric(unique(pedon$plot_id))
+#       base.url.list &lt;-&quot;http://127.0.0.1:5000/api/v1/soilidlist?&quot;
+#       url.list &lt;- paste0(base.url.list, &quot;longitude=&quot;, lon, &quot;&amp;latitude=&quot;, lat, &quot;&amp;plot_id=&quot;, plot_id)
+#       querry_time &lt;- system.time({
+#       result_list &lt;- possibly(fromJSON, &quot;Failed&quot;)(url.list, simplifyDataFrame = FALSE)
+#       })[3]
+#       US.random.soilIDList.API3[i] &lt;- result_list[[1]][[1]][[1]][[1]]
+#
+#     }, error=function(e){cat(&quot;ERROR :&quot;,conditionMessage(e), &quot;\n&quot;)})
+# }
+# close(pb)
+# })[3]
+# stime
+#
+# US.random.soilIDList.API3[sapply(US.random.soilIDList.API3, is.null)] &lt;- NA
+# US.random.soilIDList.API3.df &lt;- unlist(US.random.soilIDList.API3)
+# failed3 &lt;- which(US.random.soilIDList.API3.df==&quot;Failed&quot;)</code></pre>
+<p> </p>
+</div>
+</div>
+<div id="soilidrank-test-function" class="section level2">
+<h2>soilIDRank test function:</h2>
+<p>This function will run the soilIDrank algorithm via the FLASK api. It allows for random subsetting of the test dataset. The required input parameters include:</p>
+<ul>
+<li>data – the point dataframe that includes: lat, lon, and plot_id</li>
+<li>soilHorizon – list of seven character values for the soil texuture class. Any missing texture classes should be filled in with ""</li>
+<li>rfvDepth – list of seven character values for the soil rock fragment volume class. Any missing rock fragment volume classes should be filled in with ""</li>
+<li>lab_Color – list of seven numeric vectors for the soil LAB values. Any missing LAB vectors should be filled in with ""</li>
+<li>random – default is FALSE, set to TRUE if you want to create a random subset of data</li>
+<li>random_n – default is 500, change number to create different random subset.</li>
+</ul>
+<pre class="r"><code>soilIDrank_API_test &lt;- function(data, soilHorizon, rfvDepth, lab_Color, bedrock, pSlope, cracks, random = FALSE, random_n = 500) {
+  base.url.rank &lt;- &quot;http://127.0.0.1:5000/api/v1/soilidrank?&quot;
+  horizonDepth &lt;- horizonDepth &lt;- list(1, 10, 20, 50, 70, 100, 120)
+  depth.text &lt;- &quot;&quot;
+  for (j in 1:length(horizonDepth)) {
+    depth &lt;- paste0(&quot;&amp;soilHorizon&quot;, j, &quot;_Depth=&quot;, horizonDepth[j])
+    if (str_detect(toupper(soilHorizon[j]), &quot; &quot;) == TRUE) {
+      text &lt;- paste0(&quot;&amp;soilHorizon&quot;, j, &quot;=&quot;, str_replace_all(toupper(soilHorizon[j]), &quot; &quot;, &quot;%20&quot;))
+    } else {
+      text &lt;- paste0(&quot;&amp;soilHorizon&quot;, j, &quot;=&quot;, toupper(soilHorizon[j]))
+    }
+    RFV &lt;- paste0(&quot;&amp;soilHorizon&quot;, j, &quot;_RFV=&quot;, rfvDepth[j])
+    depth.text &lt;- paste0(depth.text, depth, text, RFV)
+  }
+  depth.color &lt;- &quot;&quot;
+  for (j in 1:length(lab_Color)) {
+    color &lt;- paste0(&quot;&amp;soilHorizon&quot;, j, &quot;_LAB=&quot;, paste0(lab_Color[[j]], collapse = &quot;,&quot;))
+    depth.color &lt;- paste0(depth.color, color)
+  }
+
+  # Perform random subset if &#39;random==TRUE&#39;
+  if (random == TRUE) {
+    data &lt;- sample_n(data, random_n)
+  }
+  data_list &lt;- unique(data$plot_id)
+  soilIDrank &lt;- list(list())
+  soilIDrank &lt;- foreach(i = 1:length(data_list), .packages = c(&quot;stringr&quot;, &quot;dplyr&quot;, &quot;tidyr&quot;, &quot;XML&quot;, &quot;reticulate&quot;, &quot;purrr&quot;, &quot;jsonlite&quot;)) %dopar% {
+    tryCatch(
+      {
+        pedon &lt;- data[i, ]
+        lon &lt;- as.numeric(unique(pedon$lon))
+        lat &lt;- as.numeric(unique(pedon$lat))
+        plot_id &lt;- as.numeric(unique(pedon$plot_id))
+        if (is.na(bedrock) &amp; is.na(pSlope)) {
+          url.rank &lt;- paste0(base.url.rank, &quot;longitude=&quot;, lon, &quot;&amp;latitude=&quot;, lat, &quot;&amp;plot_id=&quot;, plot_id, depth.text, &quot;&amp;cracks=&quot;, cracks, depth.color)
+        } else if (!is.na(bedrock) &amp; is.na(pSlope)) {
+          url.rank &lt;- paste0(base.url.rank, &quot;longitude=&quot;, lon, &quot;&amp;latitude=&quot;, lat, &quot;&amp;plot_id=&quot;, plot_id, depth.text, &quot;&amp;cracks=&quot;, cracks, &quot;&amp;bedrock=&quot;, bedrock, depth.color)
+        } else if (is.na(bedrock) &amp; !is.na(pSlope)) {
+          url.rank &lt;- paste0(base.url.rank, &quot;longitude=&quot;, lon, &quot;&amp;latitude=&quot;, lat, &quot;&amp;plot_id=&quot;, plot_id, depth.text, &quot;&amp;cracks=&quot;, cracks, &quot;&amp;slope=&quot;, pSlope, depth.color)
+        } else if (!is.na(bedrock) &amp; !is.na(pSlope)) {
+          url.rank &lt;- paste0(base.url.rank, &quot;longitude=&quot;, lon, &quot;&amp;latitude=&quot;, lat, &quot;&amp;plot_id=&quot;, plot_id, depth.text, &quot;&amp;cracks=&quot;, cracks, &quot;&amp;slope=&quot;, pSlope, &quot;&amp;bedrock=&quot;, bedrock, depth.color)
+        }
+        result_list &lt;- possibly(fromJSON, &quot;Failed&quot;)(url.rank, simplifyDataFrame = TRUE)
+        soilIDrank[[i]] &lt;- result_list
+      },
+      error = function(e) {
+        cat(&quot;ERROR :&quot;, conditionMessage(e), &quot;\n&quot;)
+      }
+    )
+  }
+
+
+  soilIDrank.df &lt;- list()
+  for (i in 1:length(soilIDrank)) {
+    tryCatch(
+      {
+        soilIDrank.df[i] &lt;- soilIDrank[i][[1]][[1]][[1]][[1]]
+      },
+      error = function(e) {
+        cat(&quot;ERROR :&quot;, conditionMessage(e), &quot;\n&quot;)
+      }
+    )
+  }
+  return(soilIDrank.df)
+}</code></pre>
+<p> </p>
+</div>
+<div id="soilidrank-api-testing" class="section level2">
+<h2>soilIDrank API Testing</h2>
+<div id="run-the-soilidrank_api_test-function-using-the-test-datasets-using-different-levels-of-data-completeness." class="section level3">
+<h3>Run the ‘soilIDrank_API_test’ function using the test datasets using different levels of data completeness.</h3>
+</div>
+<div id="list-of-soilidrank-tests" class="section level3">
+<h3>List of ‘soilIDrank’ tests</h3>
+<ol style="list-style-type: decimal">
+<li>All data</li>
+<li>Slope only (US testing)</li>
+<li>All data - only surface depth (i.e., 1-10)</li>
+<li>All data - only sub-surface depth (i.e., 20-50)</li>
+<li>Subset of properties (500 sample random subset)
+<ul>
+<li>Texture only
+<ul>
+<li>all depths</li>
+<li>only surface depth (i.e., 0-1)</li>
+<li>only sub-surface depth (i.e., 20-50)</li>
+</ul></li>
+<li>Rock frags
+<ul>
+<li>all depths</li>
+<li>only surface depth (i.e., 0-1)</li>
+<li>only sub-surface depth (i.e., 20-50)</li>
+</ul></li>
+<li>Color
+<ul>
+<li>all depths</li>
+<li>only surface depth (i.e., 0-1)</li>
+<li>only sub-surface depth (i.e., 20-50)<br />
+</li>
+</ul></li>
+</ul></li>
+<li>Mix of properties and depths
+<ul>
+<li>Texture surface depth (i.e., 0-1) only, color sub-surface depth (i.e., 20-50) only</li>
+<li>Color surface depth (i.e., 0-1) only, rock fragments sub-surface depth (i.e., 20-50) only</li>
+</ul></li>
+<li>Cracking test dataset (US and Global points where vertisols are found)
+<ul>
+<li>All data with user identified clay and cracking</li>
+<li>All data without user identified clay or cracking</li>
+<li>All data - cracking only</li>
+<li>All data - user clay only</li>
+<li>Cracking only - not texture information</li>
+<li>Texture w/ user clay but cracking not specified</li>
+</ul></li>
+</ol>
+</div>
+<div id="test-1-all-data" class="section level3">
+<h3>Test 1: All data</h3>
+<pre class="r"><code># ---Dummy Soil Profile Data
+soilHorizon &lt;- list(&quot;LOAM&quot;, &quot;LOAM&quot;, &quot;LOAM&quot;, &quot;LOAM&quot;, &quot;LOAM&quot;, &quot;LOAM&quot;, &quot;LOAM&quot;)
+rfvDepth &lt;- list(&quot;0-1%&quot;, &quot;0-1%&quot;, &quot;0-1%&quot;, &quot;0-1%&quot;, &quot;0-1%&quot;, &quot;0-1%&quot;, &quot;0-1%&quot;)
+lab_Color &lt;- list(c(41.24, 2.54, 21.17), c(41.24, 2.54, 21.17), c(41.24, 2.54, 21.17), c(41.24, 2.54, 21.17), c(41.24, 2.54, 21.17), c(41.24, 2.54, 21.17), c(41.24, 2.54, 21.17))
+bedrock &lt;- NA
+pSlope &lt;- NA
+cracks &lt;- &quot;FALSE&quot;
+# Global soilIDrank --  all data and depths
+stime1.1 &lt;- system.time({
+  Global.random.soilIDrank.API.T1 &lt;- soilIDrank_API_test(data = glb_random_sample_xy, soilHorizon, rfvDepth, lab_Color, bedrock, pSlope, cracks, random = FALSE, random_n = 500)
+  close(pb)
+})[3]
+stime1.1 # 3315 sec, 55 min
+Global.random.soilIDrank.API.T1[sapply(Global.random.soilIDrank.API.T1, is.null)] &lt;- NA
+Global.random.soilIDrank.API.T1 &lt;- unlist(Global.random.soilIDrank.API.T1)
+Global_failed_rank &lt;- which(is.na(Global.random.soilIDrank.API.T1))
+
+# US soilIDrank --  all data and depths
+stime1.2 &lt;- system.time({
+  US.random.soilIDrank.API.T1 &lt;- soilIDrank_API_test(data = us_random_sample_xy, soilHorizon, rfvDepth, lab_Color, bedrock, pSlope, cracks, random = FALSE, random_n = 500)
+  close(pb)
+})[3]
+stime1.2 # 6655 sec, 111 min
+US.random.soilIDrank.API.T1[sapply(US.random.soilIDrank.API.T1, is.null)] &lt;- NA
+US.random.soilIDrank.API.T1 &lt;- unlist(US.random.soilIDrank.API.T1)
+US_failed_rank &lt;- which(is.na(US.random.soilIDrank.API.T1))</code></pre>
+</div>
+<div id="test-2-slope-only-us-testing" class="section level3">
+<h3>Test 2: Slope only (US testing)</h3>
+<pre class="r"><code># ---Dummy Soil Profile Data
+soilHorizon &lt;- list(&quot;&quot;, &quot;&quot;, &quot;&quot;, &quot;&quot;, &quot;&quot;, &quot;&quot;, &quot;&quot;)
+rfvDepth &lt;- list(&quot;&quot;, &quot;&quot;, &quot;&quot;, &quot;&quot;, &quot;&quot;, &quot;&quot;, &quot;&quot;)
+lab_Color &lt;- list(&quot;&quot;, &quot;&quot;, &quot;&quot;, &quot;&quot;, &quot;&quot;, &quot;&quot;, &quot;&quot;)
+bedrock &lt;- NA
+pSlope &lt;- &quot;2&quot;
+cracks &lt;- &quot;FALSE&quot;
+
+# US soilIDrank --  all data and depths
+stime2.1 &lt;- system.time({
+  US.random.soilIDrank.API.T2 &lt;- soilIDrank_API_test(data = us_random_sample_xy, soilHorizon, rfvDepth, lab_Color, bedrock, pSlope, cracks, bedrock, random = FALSE, random_n = 500)
+  close(pb)
+})[3]
+stime2.1 # 733 sec, 12 min
+US.random.soilIDrank.API.T2[sapply(US.random.soilIDrank.API.T2, is.null)] &lt;- NA
+US.random.soilIDrank.API.T2 &lt;- unlist(US.random.soilIDrank.API.T2)
+US_failed_rank.T2 &lt;- which(is.na(US.random.soilIDrank.API.T2))</code></pre>
+</div>
+<div id="test-3-all-data---only-surface-depth-i.e.-1-10" class="section level3">
+<h3>Test 3: All data - only surface depth (i.e., 1-10)</h3>
+<pre class="r"><code># ---Dummy Soil Profile Data
+soilHorizon &lt;- list(&quot;&quot;, &quot;LOAM&quot;, &quot;&quot;, &quot;&quot;, &quot;&quot;, &quot;&quot;, &quot;&quot;)
+rfvDepth &lt;- list(&quot;&quot;, &quot;0-1%&quot;, &quot;&quot;, &quot;&quot;, &quot;&quot;, &quot;&quot;, &quot;&quot;)
+lab_Color &lt;- list(&quot;&quot;, c(41.24, 2.54, 21.17), &quot;&quot;, &quot;&quot;, &quot;&quot;, &quot;&quot;, &quot;&quot;)
+bedrock &lt;- NA
+pSlope &lt;- NA
+cracks &lt;- &quot;FALSE&quot;
+
+# Global soilIDrank --  all data - only surface depth (i.e., 1-10)
+stime3.1 &lt;- system.time({
+  Global.random.soilIDrank.API.T3 &lt;- soilIDrank_API_test(data = glb_random_sample_xy, soilHorizon, rfvDepth, lab_Color, bedrock, pSlope, cracks, random = FALSE, random_n = 500)
+  close(pb)
+})[3]
+stime3.1 # 904 sec, 15 min
+Global.random.soilIDrank.API.T3[sapply(Global.random.soilIDrank.API.T3, is.null)] &lt;- NA
+Global.random.soilIDrank.API.T3 &lt;- unlist(Global.random.soilIDrank.API.T3)
+Global_failed_rank.T3 &lt;- which(is.na(Global.random.soilIDrank.API.T3))
+
+# US soilIDrank --  all data - only surface depth (i.e., 1-10)
+stime3.2 &lt;- system.time({
+  US.random.soilIDrank.API.T3 &lt;- soilIDrank_API_test(data = us_random_sample_xy, soilHorizon, rfvDepth, lab_Color, bedrock, pSlope, cracks, random = FALSE, random_n = 500)
+  close(pb)
+})[3]
+stime3.2 # 1433 sec, 24 min
+US.random.soilIDrank.API.T3[sapply(US.random.soilIDrank.API.T3, is.null)] &lt;- NA
+US.random.soilIDrank.API.T3 &lt;- unlist(US.random.soilIDrank.API.T3)
+US_failed_rank.T3 &lt;- which(is.na(US.random.soilIDrank.API.T3))</code></pre>
+</div>
+<div id="test-4-all-data---only-sub-surface-depth-i.e.-20-50" class="section level3">
+<h3>Test 4: All data - only sub-surface depth (i.e., 20-50)</h3>
+<pre class="r"><code># ---Dummy Soil Profile Data
+soilHorizon &lt;- list(&quot;&quot;, &quot;&quot;, &quot;&quot;, &quot;LOAM&quot;, &quot;&quot;, &quot;&quot;, &quot;&quot;)
+rfvDepth &lt;- list(&quot;&quot;, &quot;&quot;, &quot;&quot;, &quot;0-1%&quot;, &quot;&quot;, &quot;&quot;, &quot;&quot;)
+lab_Color &lt;- list(&quot;&quot;, &quot;&quot;, &quot;&quot;, c(41.24, 2.54, 21.17), &quot;&quot;, &quot;&quot;, &quot;&quot;)
+bedrock &lt;- NA
+pSlope &lt;- NA
+cracks &lt;- &quot;FALSE&quot;
+
+# Global soilIDrank --  only sub-surface depth (i.e., 20-50)
+stime4.1 &lt;- system.time({
+  Global.random.soilIDrank.API.T4 &lt;- soilIDrank_API_test(data = glb_random_sample_xy, soilHorizon, rfvDepth, lab_Color, bedrock, pSlope, cracks, random = FALSE, random_n = 500)
+  close(pb)
+})[3]
+stime4.1 # 2327 sec, 39 min
+Global.random.soilIDrank.API.T4[sapply(Global.random.soilIDrank.API.T4, is.null)] &lt;- NA
+Global.random.soilIDrank.API.T4 &lt;- unlist(Global.random.soilIDrank.API.T4)
+Global_failed_rank.T4 &lt;- which(is.na(Global.random.soilIDrank.API.T4))
+
+# US soilIDrank --  only sub-surface depth (i.e., 20-50)
+stime4.2 &lt;- system.time({
+  US.random.soilIDrank.API.T4 &lt;- soilIDrank_API_test(data = us_random_sample_xy, soilHorizon, rfvDepth, lab_Color, bedrock, pSlope, cracks, random = FALSE, random_n = 500)
+  close(pb)
+})[3]
+stime4.2 # 2586 sec, 43 min
+US.random.soilIDrank.API.T4[sapply(US.random.soilIDrank.API.T4, is.null)] &lt;- NA
+US.random.soilIDrank.API.T4 &lt;- unlist(US.random.soilIDrank.API.T4)
+US_failed_rank.T4 &lt;- which(is.na(US.random.soilIDrank.API.T4))</code></pre>
+<p> </p>
+</div>
+<div id="test-5-subset-of-properties-500-sample-random-subset" class="section level3">
+<h3>Test 5: Subset of properties (500 sample random subset)</h3>
+<p>Subset of properties (500 sample random subset)</p>
+<pre><code>+ Texture only
+  + all depths
+  + only surface depth (i.e., 0-1)
+  + only sub-surface depth (i.e., 20-50)
++ Rock frags
+  + all depths
+  + only surface depth (i.e., 0-1)
+  + only sub-surface depth (i.e., 20-50)
++ Color
+  + all depths
+  + only surface depth (i.e., 0-1)
+  + only sub-surface depth (i.e., 20-50) 
+  </code></pre>
+</div>
+<div id="test-5.1-texture-only" class="section level3">
+<h3>Test 5.1 Texture only</h3>
+<div id="test-5.1.1-texture-only-all-depths" class="section level4">
+<h4>Test 5.1.1 Texture only – all depths</h4>
+<pre class="r"><code># Test 5.1.1 Texture only -- all depths
+# ---Dummy Soil Profile Data
+set.seed(9)
+soilHorizon &lt;- list(&quot;LOAM&quot;, &quot;LOAM&quot;, &quot;LOAM&quot;, &quot;LOAM&quot;, &quot;LOAM&quot;, &quot;LOAM&quot;, &quot;LOAM&quot;)
+rfvDepth &lt;- list(&quot;&quot;, &quot;&quot;, &quot;&quot;, &quot;&quot;, &quot;&quot;, &quot;&quot;, &quot;&quot;)
+lab_Color &lt;- list(&quot;&quot;, &quot;&quot;, &quot;&quot;, &quot;&quot;, &quot;&quot;, &quot;&quot;, &quot;&quot;)
+bedrock &lt;- NA
+pSlope &lt;- NA
+cracks &lt;- &quot;FALSE&quot;
+
+# Global soilIDrank --  Texture only -- all depths
+stime5.1.1.1 &lt;- system.time({
+  Global.random.soilIDrank.API.T5.1.1 &lt;- soilIDrank_API_test(data = glb_random_sample_xy, soilHorizon, rfvDepth, lab_Color, bedrock, pSlope, cracks, random = TRUE, random_n = 500)
+  close(pb)
+})[3]
+stime5.1.1.1 # 373 sec,  6 min
+Global.random.soilIDrank.API.T5.1.1[sapply(Global.random.soilIDrank.API.T5.1.1, is.null)] &lt;- NA
+Global.random.soilIDrank.API.T5.1.1 &lt;- unlist(Global.random.soilIDrank.API.T5.1.1)
+Global_failed_rank.T5.1.1 &lt;- which(is.na(Global.random.soilIDrank.API.T5.1.1))
+Global_failed_rank.T5.1.1
+Global_failed_rank.T5.1.1 &lt;- which(Global.random.soilIDrank.API.T5.1.1 == &quot;Failed&quot;)
+Global_failed_rank.T5.1.1
+# US soilIDrank -- Texture only -- all depths
+stime5.1.1.2 &lt;- system.time({
+  US.random.soilIDrank.API.T5.1.1 &lt;- soilIDrank_API_test(data = us_random_sample_xy, soilHorizon, rfvDepth, lab_Color, bedrock, pSlope, cracks, random = TRUE, random_n = 500)
+  close(pb)
+})[3]
+stime5.1.1.2 # 1124 sec,  19 min
+US.random.soilIDrank.API.T5.1.1[sapply(US.random.soilIDrank.API.T5.1.1, is.null)] &lt;- NA
+US.random.soilIDrank.API.T5.1.1 &lt;- unlist(US.random.soilIDrank.API.T5.1.1)
+US_failed_rank.T5.1.1 &lt;- which(is.na(US.random.soilIDrank.API.T5.1.1))
+US_failed_rank.T5.1.1
+US_failed_rank.T5.1.1 &lt;- which(US.random.soilIDrank.API.T5.1.1 == &quot;Failed&quot;)
+US_failed_rank.T5.1.1</code></pre>
+</div>
+<div id="test-5.1.2-texture-only-only-surface-depth-i.e.-0-1" class="section level4">
+<h4>Test 5.1.2 Texture only – only surface depth (i.e., 0-1)</h4>
+<pre class="r"><code># Test 5.1.2 Texture only -- only surface depth (i.e., 0-1)
+# ---Dummy Soil Profile Data
+set.seed(10)
+soilHorizon &lt;- list(&quot;LOAM&quot;, &quot;&quot;, &quot;&quot;, &quot;&quot;, &quot;&quot;, &quot;&quot;, &quot;&quot;)
+rfvDepth &lt;- list(&quot;&quot;, &quot;&quot;, &quot;&quot;, &quot;&quot;, &quot;&quot;, &quot;&quot;, &quot;&quot;)
+lab_Color &lt;- list(&quot;&quot;, &quot;&quot;, &quot;&quot;, &quot;&quot;, &quot;&quot;, &quot;&quot;, &quot;&quot;)
+bedrock &lt;- NA
+pSlope &lt;- NA
+cracks &lt;- &quot;FALSE&quot;
+
+# Global soilIDrank --  Texture only -- only surface depth (i.e., 0-1)
+stime5.1.2.1 &lt;- system.time({
+  Global.random.soilIDrank.API.T5.1.2 &lt;- soilIDrank_API_test(data = glb_random_sample_xy, soilHorizon, rfvDepth, lab_Color, bedrock, pSlope, cracks, random = TRUE, random_n = 500)
+  close(pb)
+})[3]
+stime5.1.2.1 # sec,  min
+Global.random.soilIDrank.API.T5.1.2[sapply(Global.random.soilIDrank.API.T5.1.2, is.null)] &lt;- NA
+Global.random.soilIDrank.API.T5.1.2 &lt;- unlist(Global.random.soilIDrank.API.T5.1.2)
+Global_failed_rank.T5.1.2 &lt;- which(is.na(Global.random.soilIDrank.API.T5.1.2))
+
+# US soilIDrank -- Texture only -- only surface depth (i.e., 0-1)
+stime5.1.2.2 &lt;- system.time({
+  US.random.soilIDrank.API.T5.1.2 &lt;- soilIDrank_API_test(data = us_random_sample_xy, soilHorizon, rfvDepth, lab_Color, bedrock, pSlope, cracks, random = TRUE, random_n = 500)
+  close(pb)
+})[3]
+stime5.1.2.2 # sec,  min
+US.random.soilIDrank.API.T5.1.2[sapply(US.random.soilIDrank.API.T5.1.2, is.null)] &lt;- NA
+US.random.soilIDrank.API.T5.1.2 &lt;- unlist(US.random.soilIDrank.API.T5.1.2)
+US_failed_rank.T5.1.2 &lt;- which(is.na(US.random.soilIDrank.API.T5.1.2))</code></pre>
+</div>
+<div id="test-5.1.3-texture-only-only-sub-surface-depth-i.e.-20-50" class="section level4">
+<h4>Test 5.1.3 Texture only – only sub-surface depth (i.e., 20-50)</h4>
+<pre class="r"><code># Test 5.1.3 Texture only -- only sub-surface depth (i.e., 20-50)
+# ---Dummy Soil Profile Data
+set.seed(11)
+soilHorizon &lt;- list(&quot;&quot;, &quot;&quot;, &quot;&quot;, &quot;LOAM&quot;, &quot;&quot;, &quot;&quot;, &quot;&quot;)
+rfvDepth &lt;- list(&quot;&quot;, &quot;&quot;, &quot;&quot;, &quot;&quot;, &quot;&quot;, &quot;&quot;, &quot;&quot;)
+lab_Color &lt;- list(&quot;&quot;, &quot;&quot;, &quot;&quot;, &quot;&quot;, &quot;&quot;, &quot;&quot;, &quot;&quot;)
+bedrock &lt;- NA
+pSlope &lt;- NA
+cracks &lt;- &quot;FALSE&quot;
+
+# Global soilIDrank --  Texture only -- only surface depth (i.e., 0-1)
+stime5.1.3.1 &lt;- system.time({
+  Global.random.soilIDrank.API.T5.1.3 &lt;- soilIDrank_API_test(data = glb_random_sample_xy, soilHorizon, rfvDepth, lab_Color, bedrock, pSlope, cracks, random = TRUE, random_n = 500)
+  close(pb)
+})[3]
+stime5.1.3.1 # sec,  min
+Global.random.soilIDrank.API.T5.1.3[sapply(Global.random.soilIDrank.API.T5.1.3, is.null)] &lt;- NA
+Global.random.soilIDrank.API.T5.1.3 &lt;- unlist(Global.random.soilIDrank.API.T5.1.3)
+Global_failed_rank.T5.1.3 &lt;- which(is.na(Global.random.soilIDrank.API.T5.1.3))
+
+# US soilIDrank -- Texture only -- only surface depth (i.e., 0-1)
+stime5.1.3.2 &lt;- system.time({
+  US.random.soilIDrank.API.T5.1.3 &lt;- soilIDrank_API_test(data = us_random_sample_xy, soilHorizon, rfvDepth, lab_Color, bedrock, pSlope, cracks, random = TRUE, random_n = 500)
+  close(pb)
+})[3]
+stime5.1.3.2 # sec,  min
+US.random.soilIDrank.API.T5.1.3[sapply(US.random.soilIDrank.API.T5.1.3, is.null)] &lt;- NA
+US.random.soilIDrank.API.T5.1.3 &lt;- unlist(US.random.soilIDrank.API.T5.1.3)
+US_failed_rank.T5.1.3 &lt;- which(is.na(US.random.soilIDrank.API.T5.1.3))</code></pre>
+</div>
+</div>
+<div id="test-5.2-rock-frags-only" class="section level3">
+<h3>Test 5.2 Rock frags only</h3>
+<div id="test-5.2.1-rock-frags-only-all-depths" class="section level4">
+<h4>Test 5.2.1 Rock frags only – all depths</h4>
+<pre class="r"><code># Test 5.2.1 Rock frags only -- all depths
+# ---Dummy Soil Profile Data
+set.seed(12)
+soilHorizon &lt;- list(&quot;&quot;, &quot;&quot;, &quot;&quot;, &quot;&quot;, &quot;&quot;, &quot;&quot;, &quot;&quot;)
+rfvDepth &lt;- list(&quot;0-1%&quot;, &quot;0-1%&quot;, &quot;0-1%&quot;, &quot;0-1%&quot;, &quot;0-1%&quot;, &quot;0-1%&quot;, &quot;0-1%&quot;)
+lab_Color &lt;- list(&quot;&quot;, &quot;&quot;, &quot;&quot;, &quot;&quot;, &quot;&quot;, &quot;&quot;, &quot;&quot;)
+bedrock &lt;- NA
+pSlope &lt;- NA
+cracks &lt;- &quot;FALSE&quot;
+
+# Global soilIDrank --  Rock frags only -- all depths
+stime5.2.1.1 &lt;- system.time({
+  Global.random.soilIDrank.API.T5.2.1 &lt;- soilIDrank_API_test(data = glb_random_sample_xy, soilHorizon, rfvDepth, lab_Color, bedrock, pSlope, cracks, random = TRUE, random_n = 500)
+  close(pb)
+})[3]
+stime5.2.1.1 # sec,  min
+Global.random.soilIDrank.API.T5.2.1[sapply(Global.random.soilIDrank.API.T5.2.1, is.null)] &lt;- NA
+Global.random.soilIDrank.API.T5.2.1 &lt;- unlist(Global.random.soilIDrank.API.T5.2.1)
+Global_failed_rank.T5.2.1 &lt;- which(is.na(Global.random.soilIDrank.API.T5.2.1))
+
+# US soilIDrank -- Rock frags only -- all depths
+stime5.2.1.2 &lt;- system.time({
+  US.random.soilIDrank.API.T5.2.1 &lt;- soilIDrank_API_test(data = us_random_sample_xy, soilHorizon, rfvDepth, lab_Color, bedrock, pSlope, cracks, random = TRUE, random_n = 500)
+  close(pb)
+})[3]
+stime5.2.1.2 # sec,  min
+US.random.soilIDrank.API.T5.2.1[sapply(US.random.soilIDrank.API.T5.2.1, is.null)] &lt;- NA
+US.random.soilIDrank.API.T5.2.1 &lt;- unlist(US.random.soilIDrank.API.T5.2.1)
+US_failed_rank.T5.2.1 &lt;- which(is.na(US.random.soilIDrank.API.T5.2.1))</code></pre>
+</div>
+<div id="test-5.2.2-rock-frags-only-only-surface-depth-i.e.-0-1" class="section level4">
+<h4>Test 5.2.2 Rock frags only – only surface depth (i.e., 0-1)</h4>
+<pre class="r"><code># Test 5.2.2 Rock frags only -- only surface depth (i.e., 0-1)
+# ---Dummy Soil Profile Data
+set.seed(13)
+soilHorizon &lt;- list(&quot;&quot;, &quot;&quot;, &quot;&quot;, &quot;&quot;, &quot;&quot;, &quot;&quot;, &quot;&quot;)
+rfvDepth &lt;- list(&quot;0-1%&quot;, &quot;&quot;, &quot;&quot;, &quot;&quot;, &quot;&quot;, &quot;&quot;, &quot;&quot;)
+lab_Color &lt;- list(&quot;&quot;, &quot;&quot;, &quot;&quot;, &quot;&quot;, &quot;&quot;, &quot;&quot;, &quot;&quot;)
+bedrock &lt;- NA
+pSlope &lt;- NA
+cracks &lt;- &quot;FALSE&quot;
+
+# Global soilIDrank --  Rock frags only -- only surface depth (i.e., 0-1)
+stime5.2.2.1 &lt;- system.time({
+  Global.random.soilIDrank.API.T5.2.2 &lt;- soilIDrank_API_test(data = glb_random_sample_xy, soilHorizon, rfvDepth, lab_Color, bedrock, pSlope, cracks, random = TRUE, random_n = 500)
+  close(pb)
+})[3]
+stime5.2.2.1 # sec,  min
+Global.random.soilIDrank.API.T5.2.2[sapply(Global.random.soilIDrank.API.T5.2.2, is.null)] &lt;- NA
+Global.random.soilIDrank.API.T5.2.2 &lt;- unlist(Global.random.soilIDrank.API.T5.2.2)
+Global_failed_rank.T5.2.2 &lt;- which(is.na(Global.random.soilIDrank.API.T5.2.2))
+
+# US soilIDrank -- Rock frags only -- only surface depth (i.e., 0-1)
+stime5.2.2.2 &lt;- system.time({
+  US.random.soilIDrank.API.T5.2.2 &lt;- soilIDrank_API_test(data = us_random_sample_xy, soilHorizon, rfvDepth, lab_Color, bedrock, pSlope, cracks, random = TRUE, random_n = 500)
+  close(pb)
+})[3]
+stime5.2.2.2 # sec,  min
+US.random.soilIDrank.API.T5.2.2[sapply(US.random.soilIDrank.API.T5.2.2, is.null)] &lt;- NA
+US.random.soilIDrank.API.T5.2.2 &lt;- unlist(US.random.soilIDrank.API.T5.2.2)
+US_failed_rank.T5.2.2 &lt;- which(is.na(US.random.soilIDrank.API.T5.2.2))</code></pre>
+</div>
+<div id="test-5.2.3-rock-frags-only-only-sub-surface-depth-i.e.-20-50" class="section level4">
+<h4>Test 5.2.3 Rock frags only – only sub-surface depth (i.e., 20-50)</h4>
+<pre class="r"><code># Test 5.2.3 Rock frags only -- only sub-surface depth (i.e., 20-50)
+# ---Dummy Soil Profile Data
+set.seed(14)
+soilHorizon &lt;- list(&quot;&quot;, &quot;&quot;, &quot;&quot;, &quot;&quot;, &quot;&quot;, &quot;&quot;, &quot;&quot;)
+rfvDepth &lt;- list(&quot;&quot;, &quot;&quot;, &quot;&quot;, &quot;0-1%&quot;, &quot;&quot;, &quot;&quot;, &quot;&quot;)
+lab_Color &lt;- list(&quot;&quot;, &quot;&quot;, &quot;&quot;, &quot;&quot;, &quot;&quot;, &quot;&quot;, &quot;&quot;)
+bedrock &lt;- NA
+pSlope &lt;- NA
+cracks &lt;- &quot;FALSE&quot;
+
+# Global soilIDrank --  Rock frags only -- only surface depth (i.e., 0-1)
+stime5.2.3.1 &lt;- system.time({
+  Global.random.soilIDrank.API.T5.2.3 &lt;- soilIDrank_API_test(data = glb_random_sample_xy, soilHorizon, rfvDepth, lab_Color, bedrock, pSlope, cracks, random = TRUE, random_n = 500)
+  close(pb)
+})[3]
+stime5.2.3.1 # sec,  min
+Global.random.soilIDrank.API.T5.2.3[sapply(Global.random.soilIDrank.API.T5.2.3, is.null)] &lt;- NA
+Global.random.soilIDrank.API.T5.2.3 &lt;- unlist(Global.random.soilIDrank.API.T5.2.3)
+Global_failed_rank.T5.2.3 &lt;- which(is.na(Global.random.soilIDrank.API.T5.2.3))
+
+# US soilIDrank -- Rock frags only -- only surface depth (i.e., 0-1)
+stime5.2.3.2 &lt;- system.time({
+  US.random.soilIDrank.API.T5.2.3 &lt;- soilIDrank_API_test(data = us_random_sample_xy, soilHorizon, rfvDepth, lab_Color, bedrock, pSlope, cracks, random = TRUE, random_n = 500)
+  close(pb)
+})[3]
+stime5.2.3.2 # sec,  min
+US.random.soilIDrank.API.T5.2.3[sapply(US.random.soilIDrank.API.T5.2.3, is.null)] &lt;- NA
+US.random.soilIDrank.API.T5.2.3 &lt;- unlist(US.random.soilIDrank.API.T5.2.3)
+US_failed_rank.T5.2.3 &lt;- which(is.na(US.random.soilIDrank.API.T5.2.3))</code></pre>
+</div>
+</div>
+<div id="test-5.3-color-only" class="section level3">
+<h3>Test 5.3 Color only</h3>
+<div id="test-5.3.1-color-only-all-depths" class="section level4">
+<h4>Test 5.3.1 Color only – all depths</h4>
+<pre class="r"><code># Test 5.3.1 Color only -- all depths
+# ---Dummy Soil Profile Data
+set.seed(15)
+soilHorizon &lt;- list(&quot;&quot;, &quot;&quot;, &quot;&quot;, &quot;&quot;, &quot;&quot;, &quot;&quot;, &quot;&quot;)
+rfvDepth &lt;- list(&quot;&quot;, &quot;&quot;, &quot;&quot;, &quot;&quot;, &quot;&quot;, &quot;&quot;, &quot;&quot;)
+lab_Color &lt;- list(c(41.24, 2.54, 21.17), c(41.24, 2.54, 21.17), c(41.24, 2.54, 21.17), c(41.24, 2.54, 21.17), c(41.24, 2.54, 21.17), c(41.24, 2.54, 21.17), c(41.24, 2.54, 21.17))
+bedrock &lt;- NA
+pSlope &lt;- NA
+cracks &lt;- &quot;FALSE&quot;
+
+# Global soilIDrank --  Color only -- all depths
+stime5.3.1.1 &lt;- system.time({
+  Global.random.soilIDrank.API.T5.3.1 &lt;- soilIDrank_API_test(data = glb_random_sample_xy, soilHorizon, rfvDepth, lab_Color, bedrock, pSlope, cracks, random = TRUE, random_n = 500)
+  close(pb)
+})[3]
+stime5.3.1.1 # sec,  min
+Global.random.soilIDrank.API.T5.3.1[sapply(Global.random.soilIDrank.API.T5.3.1, is.null)] &lt;- NA
+Global.random.soilIDrank.API.T5.3.1 &lt;- unlist(Global.random.soilIDrank.API.T5.3.1)
+Global_failed_rank.T5.3.1 &lt;- which(is.na(Global.random.soilIDrank.API.T5.3.1))
+
+# US soilIDrank -- Color only -- all depths
+stime5.3.1.2 &lt;- system.time({
+  US.random.soilIDrank.API.T5.3.1 &lt;- soilIDrank_API_test(data = us_random_sample_xy, soilHorizon, rfvDepth, lab_Color, bedrock, pSlope, cracks, random = TRUE, random_n = 500)
+  close(pb)
+})[3]
+stime5.3.1.2 # sec,  min
+US.random.soilIDrank.API.T5.3.1[sapply(US.random.soilIDrank.API.T5.3.1, is.null)] &lt;- NA
+US.random.soilIDrank.API.T5.3.1 &lt;- unlist(US.random.soilIDrank.API.T5.3.1)
+US_failed_rank.T5.3.1 &lt;- which(is.na(US.random.soilIDrank.API.T5.3.1))
+US_failed_rank.T5.3.1 &lt;- which(US.random.soilIDrank.API.T5.3.1 == &quot;Failed&quot;)</code></pre>
+</div>
+<div id="test-5.3.2-color-only-only-surface-depth-i.e.-0-1" class="section level4">
+<h4>Test 5.3.2 Color only – only surface depth (i.e., 0-1)</h4>
+<pre class="r"><code># Test 5.3.2 Color only -- only surface depth (i.e., 0-1)
+# ---Dummy Soil Profile Data
+set.seed(16)
+soilHorizon &lt;- list(&quot;&quot;, &quot;&quot;, &quot;&quot;, &quot;&quot;, &quot;&quot;, &quot;&quot;, &quot;&quot;)
+rfvDepth &lt;- list(&quot;&quot;, &quot;&quot;, &quot;&quot;, &quot;&quot;, &quot;&quot;, &quot;&quot;, &quot;&quot;)
+lab_Color &lt;- list(c(41.24, 2.54, 21.17), &quot;&quot;, &quot;&quot;, &quot;&quot;, &quot;&quot;, &quot;&quot;, &quot;&quot;)
+bedrock &lt;- NA
+pSlope &lt;- NA
+cracks &lt;- &quot;FALSE&quot;
+
+# Global soilIDrank --  Color only -- only surface depth (i.e., 0-1)
+stime5.3.2.1 &lt;- system.time({
+  Global.random.soilIDrank.API.T5.3.2 &lt;- soilIDrank_API_test(data = glb_random_sample_xy, soilHorizon, rfvDepth, lab_Color, bedrock, pSlope, cracks, random = TRUE, random_n = 500)
+  close(pb)
+})[3]
+stime5.3.2.1 # sec,  min
+Global.random.soilIDrank.API.T5.3.2[sapply(Global.random.soilIDrank.API.T5.3.2, is.null)] &lt;- NA
+Global.random.soilIDrank.API.T5.3.2 &lt;- unlist(Global.random.soilIDrank.API.T5.3.2)
+Global_failed_rank.T5.3.2 &lt;- which(is.na(Global.random.soilIDrank.API.T5.3.2))
+
+# US soilIDrank -- Color only -- only surface depth (i.e., 0-1)
+stime5.3.2.2 &lt;- system.time({
+  US.random.soilIDrank.API.T5.3.2 &lt;- soilIDrank_API_test(data = us_random_sample_xy, soilHorizon, rfvDepth, lab_Color, bedrock, pSlope, cracks, random = TRUE, random_n = 500)
+  close(pb)
+})[3]
+stime5.3.2.2 # sec,  min
+US.random.soilIDrank.API.T5.3.2[sapply(US.random.soilIDrank.API.T5.3.2, is.null)] &lt;- NA
+US.random.soilIDrank.API.T5.3.2 &lt;- unlist(US.random.soilIDrank.API.T5.3.2)
+US_failed_rank.T5.3.2 &lt;- which(is.na(US.random.soilIDrank.API.T5.3.2))</code></pre>
+</div>
+<div id="test-5.3.3-color-only-only-sub-surface-depth-i.e.-20-50" class="section level4">
+<h4>Test 5.3.3 Color only – only sub-surface depth (i.e., 20-50)</h4>
+<pre class="r"><code># Test 5.3.3 Color only -- only sub-surface depth (i.e., 20-50)
+# ---Dummy Soil Profile Data
+set.seed(17)
+soilHorizon &lt;- list(&quot;&quot;, &quot;&quot;, &quot;&quot;, &quot;&quot;, &quot;&quot;, &quot;&quot;, &quot;&quot;)
+rfvDepth &lt;- list(&quot;&quot;, &quot;&quot;, &quot;&quot;, &quot;&quot;, &quot;&quot;, &quot;&quot;, &quot;&quot;)
+lab_Color &lt;- list(&quot;&quot;, &quot;&quot;, &quot;&quot;, c(41.24, 2.54, 21.17), &quot;&quot;, &quot;&quot;, &quot;&quot;)
+bedrock &lt;- NA
+pSlope &lt;- NA
+cracks &lt;- &quot;FALSE&quot;
+
+# Global soilIDrank --  Color only -- only surface depth (i.e., 0-1)
+stime5.3.3.1 &lt;- system.time({
+  Global.random.soilIDrank.API.T5.3.3 &lt;- soilIDrank_API_test(data = glb_random_sample_xy, soilHorizon, rfvDepth, lab_Color, bedrock, pSlope, cracks, random = TRUE, random_n = 500)
+  close(pb)
+})[3]
+stime5.3.3.1 # sec,  min
+Global.random.soilIDrank.API.T5.3.3[sapply(Global.random.soilIDrank.API.T5.3.3, is.null)] &lt;- NA
+Global.random.soilIDrank.API.T5.3.3 &lt;- unlist(Global.random.soilIDrank.API.T5.3.3)
+Global_failed_rank.T5.3.3 &lt;- which(is.na(Global.random.soilIDrank.API.T5.3.3))
+
+# US soilIDrank -- Color only -- only surface depth (i.e., 0-1)
+stime5.3.3.2 &lt;- system.time({
+  US.random.soilIDrank.API.T5.3.3 &lt;- soilIDrank_API_test(data = us_random_sample_xy, soilHorizon, rfvDepth, lab_Color, bedrock, pSlope, cracks, random = TRUE, random_n = 500)
+  close(pb)
+})[3]
+stime5.3.3.2 # sec,  min
+US.random.soilIDrank.API.T5.3.3[sapply(US.random.soilIDrank.API.T5.3.3, is.null)] &lt;- NA
+US.random.soilIDrank.API.T5.3.3 &lt;- unlist(US.random.soilIDrank.API.T5.3.3)
+US_failed_rank.T5.3.3 &lt;- which(is.na(US.random.soilIDrank.API.T5.3.3))</code></pre>
+<p> </p>
+</div>
+</div>
+<div id="test-6-mix-of-properties-and-depths" class="section level3">
+<h3>Test 6: Mix of properties and depths</h3>
+<pre><code>+ Texture surface depth (i.e., 0-1) only, color sub-surface depth (i.e., 20-50) only
++ Color surface depth (i.e., 0-1) only, rock fragments sub-surface depth (i.e., 20-50) only</code></pre>
+<div id="test-6.1-texture-surface-depth-i.e.-0-1-only-color-sub-surface-depth-i.e.-20-50-only" class="section level4">
+<h4>Test 6.1 Texture surface depth (i.e., 0-1) only, color sub-surface depth (i.e., 20-50) only</h4>
+<pre class="r"><code># Test 6.1 Texture surface depth (i.e., 0-1) only, color sub-surface depth (i.e., 20-50) only
+# ---Dummy Soil Profile Data
+set.seed(18)
+soilHorizon &lt;- list(&quot;LOAM&quot;, &quot;&quot;, &quot;&quot;, &quot;&quot;, &quot;&quot;, &quot;&quot;, &quot;&quot;)
+rfvDepth &lt;- list(&quot;&quot;, &quot;&quot;, &quot;&quot;, &quot;&quot;, &quot;&quot;, &quot;&quot;, &quot;&quot;)
+lab_Color &lt;- list(&quot;&quot;, &quot;&quot;, &quot;&quot;, c(41.24, 2.54, 21.17), &quot;&quot;, &quot;&quot;, &quot;&quot;)
+bedrock &lt;- NA
+pSlope &lt;- NA
+cracks &lt;- &quot;FALSE&quot;
+
+# Global soilIDrank --  Texture surface depth (i.e., 0-1) only, color sub-surface depth (i.e., 20-50) only
+stime6.1.1 &lt;- system.time({
+  Global.random.soilIDrank.API.T6.1 &lt;- soilIDrank_API_test(data = glb_random_sample_xy, soilHorizon, rfvDepth, lab_Color, bedrock, pSlope, cracks, random = TRUE, random_n = 500)
+  close(pb)
+})[3]
+stime6.1.1 # sec,  min
+Global.random.soilIDrank.API.T6.1[sapply(Global.random.soilIDrank.API.T6.1, is.null)] &lt;- NA
+Global.random.soilIDrank.API.T6.1 &lt;- unlist(Global.random.soilIDrank.API.T6.1)
+Global_failed_rank.T6.1 &lt;- which(is.na(Global.random.soilIDrank.API.T6.1))
+
+# US soilIDrank -- Texture surface depth (i.e., 0-1) only, color sub-surface depth (i.e., 20-50) only
+stime6.1.2 &lt;- system.time({
+  US.random.soilIDrank.API.T6.1 &lt;- soilIDrank_API_test(data = us_random_sample_xy, soilHorizon, rfvDepth, lab_Color, bedrock, pSlope, cracks, random = TRUE, random_n = 500)
+  close(pb)
+})[3]
+stime6.1.2 # sec,  min
+US.random.soilIDrank.API.T6.1[sapply(US.random.soilIDrank.API.T6.1, is.null)] &lt;- NA
+US.random.soilIDrank.API.T6.1 &lt;- unlist(US.random.soilIDrank.API.T6.1)
+US_failed_rank.T6.1 &lt;- which(is.na(US.random.soilIDrank.API.T6.1))</code></pre>
+</div>
+<div id="test-6.2-color-surface-depth-i.e.-0-1-only-rock-fragments-sub-surface-depth-i.e.-20-50-only" class="section level4">
+<h4>Test 6.2 Color surface depth (i.e., 0-1) only, rock fragments sub-surface depth (i.e., 20-50) only</h4>
+<pre class="r"><code># Test 6.2 Color surface depth (i.e., 0-1) only, rock fragments sub-surface depth (i.e., 20-50) only
+# ---Dummy Soil Profile Data
+set.seed(19)
+soilHorizon &lt;- list(&quot;&quot;, &quot;&quot;, &quot;&quot;, &quot;&quot;, &quot;&quot;, &quot;&quot;, &quot;&quot;)
+rfvDepth &lt;- list(&quot;&quot;, &quot;&quot;, &quot;&quot;, &quot;0-1%&quot;, &quot;&quot;, &quot;&quot;, &quot;&quot;)
+lab_Color &lt;- list(c(41.24, 2.54, 21.17), &quot;&quot;, &quot;&quot;, &quot;&quot;, &quot;&quot;, &quot;&quot;, &quot;&quot;)
+bedrock &lt;- NA
+pSlope &lt;- NA
+cracks &lt;- &quot;FALSE&quot;
+
+# Global soilIDrank --  Color surface depth (i.e., 0-1) only, rock fragments sub-surface depth (i.e., 20-50) only
+stime6.2.1 &lt;- system.time({
+  Global.random.soilIDrank.API.T6.2 &lt;- soilIDrank_API_test(data = glb_random_sample_xy, soilHorizon, rfvDepth, lab_Color, bedrock, pSlope, cracks, random = TRUE, random_n = 500)
+  close(pb)
+})[3]
+stime6.2.1 # sec,  min
+Global.random.soilIDrank.API.T6.2[sapply(Global.random.soilIDrank.API.T6.2, is.null)] &lt;- NA
+Global.random.soilIDrank.API.T6.2 &lt;- unlist(Global.random.soilIDrank.API.T6.2)
+Global_failed_rank.T6.2 &lt;- which(is.na(Global.random.soilIDrank.API.T6.2))
+
+# US soilIDrank -- Color surface depth (i.e., 0-1) only, rock fragments sub-surface depth (i.e., 20-50) only
+stime6.2.2 &lt;- system.time({
+  US.random.soilIDrank.API.T6.2 &lt;- soilIDrank_API_test(data = us_random_sample_xy, soilHorizon, rfvDepth, lab_Color, bedrock, pSlope, cracks, random = TRUE, random_n = 500)
+  close(pb)
+})[3]
+stime6.2.2 # sec,  min
+US.random.soilIDrank.API.T6.2[sapply(US.random.soilIDrank.API.T6.2, is.null)] &lt;- NA
+US.random.soilIDrank.API.T6.2 &lt;- unlist(US.random.soilIDrank.API.T6.2)
+US_failed_rank.T6.2 &lt;- which(is.na(US.random.soilIDrank.API.T6.2))</code></pre>
+<p> </p>
+</div>
+</div>
+<div id="test-7.-cracking-test-dataset-us-and-global-points-where-vertisols-are-found" class="section level3">
+<h3>Test 7. Cracking test dataset (US and Global points where vertisols are found)</h3>
+<pre><code>+ All data with user identified clay and cracking
++ All data without user identified clay or cracking
++ All data - cracking only
++ All data - user clay only
++ Cracking only - not texture information
++ Texture w/ user clay but cracking not specified</code></pre>
+<pre class="r"><code>save.image(here(&quot;/data/derived_data/API_Random_Sample_Testing_API-V1_03-03-20.Rdata&quot;))</code></pre>
+<br>
+<p>
+<button type="button" class="btn btn-default btn-workflowr btn-workflowr-sessioninfo" data-toggle="collapse" data-target="#workflowr-sessioninfo" style="display: block;">
+<span class="glyphicon glyphicon-wrench" aria-hidden="true"></span> Session information
+</button>
+</p>
+<div id="workflowr-sessioninfo" class="collapse">
+<pre class="r"><code>sessionInfo()</code></pre>
+</div>
+</div>
+</div>
+</div>
 
 
 <!-- Adjust MathJax settings so that all math formulae are shown using

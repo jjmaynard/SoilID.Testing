@@ -10,3 +10,6 @@ analysis/*html
 analysis/*_cache
 analysis/site_libs
 proj_setup/
+data/derived_data/private
+data/raw_data/private
+code/private

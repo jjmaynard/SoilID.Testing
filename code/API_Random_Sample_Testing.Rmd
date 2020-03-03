@@ -1,0 +1,894 @@
+---
+title: "SoilID Code Testing"
+output: html_notebook
+---
+
+# SoilID Algorithm Testing
+
+This notebook outlines the code used to perform error testing of the SoilID code. This checks for coding errors (i.e., does the code run correctly using all possible combinations of inputs data). This code does not perform any validation of the code (i.e., how accurate is the code in predicting the correct soil) but rather uses 'dummy data' to run the soilIDrank algorithm.
+
+
+### Error testing – ensure proper functioning of SoilID algorithms
+SoilID consists of two main algorithms:
+
+  + soilIDlist -- calcualtes the location-based (GPS) soil component ranking
+  + soilIDrank -- uses LandInfo soil data to calculate the statistical distance between soil profiles using Gower's Generalized Dissimilarity metric
+
+These two algorithms are implimentation separately for all areas in the US (US-SoilID) and all areas outside of the US (Global-SoilID), with slight differences in the algorthim code to accomodate differences in the structure of the SSURGO and HWSD soil databases.
+
+The first sections of code run the 'soilIDlist' function for both US-SoilID and Global-SoilID, saving the data for each test case in a MySQL database. Once this code is successfully run with errors, the saved data in the MySQL database is later used by the 'soilIDrank' algorithm to calculate the profile dissimilarity scores and component data rankings.
+
+
+
+
+### Initial setup of local FLASK api for testing:
+1. Open Ubuntu LTS
+2. Navigate to API folder
+    + cd /mnt/c/LandPKS_API_SoilID-master
+3. Activate virtual environment:
+    + source venv/bin/activate
+4. Start MySQL
+    + sudo service mysql start
+5. Set FLASK development environment
+    + export FLASK_ENV=development
+6. Start FLASK api
+    + python -m flask run
+
+### Load R packages and register cores
+```{r message=FALSE, warning=FALSE}
+# set libary path
+required.packages <- c("sf", "readr", "dplyr", "tidyr", "purrr", "reticulate", "Rcpp", "foreach", "stringr", "tcltk", "utils", "iterators", "httr", "jsonlite", "doParallel", "here", "snow")
+new.packages <- required.packages[!(required.packages %in% installed.packages()[,"Package"])]
+
+if (length(new.packages)) install.packages(new.packages)
+lapply(required.packages, require, character.only = T)
+rm(required.packages, new.packages)
+
+no_cores <- detectCores() - 1
+cl <- makeCluster(no_cores, type = "SOCK", outfile = "")
+registerDoParallel(cl)
+getDoParWorkers()
+# options(stringsAsFactors = FALSE)
+# stopCluster(cl)
+```
+
+
+#### This loads saved data from the previous run of all processing steps in code chunks below. If testing new code, ignore this step.
+```{r}
+# load(here("/data/derived_data/API_Random_Sample_Testing.Rdata"))
+```
+
+&nbsp;
+
+### Load global and us random test datasets and assign plot_id
++ Global test dataset contains 3,000 random points within HWSD but excluding areas within the US
++ US test dataset contains 3,000 random points, 500 of which are in NOTCOM areas which default to a query of the STATSGO database
+
+```{r}
+global_random_sample <- readRDS(here("/data/raw_data/Global_random_sample.rds"))
+us_random_sample <- readRDS(here("/data/raw_data/US_random_sample.rds"))
+us_notcom_random_sample <- readRDS(here("/data/raw_data/US_NOTCOM_random_sample.rds"))
+
+# Assign plot numbers so that soilIDList results can be saved in MySQL database
+
+# Global: 1:3000
+glb_random_sample_xy <- do.call(rbind, st_geometry(global_random_sample)) %>%
+  as.data.frame() %>%
+  setNames(c("lon", "lat")) %>%
+  mutate(plot_id = seq(1, nrow(global_random_sample)))
+
+# US: 3001:6000
+us_random_sample_xy <- do.call(rbind, st_geometry(us_random_sample)) %>%
+  as.data.frame() %>%
+  setNames(c("lon", "lat")) %>%
+  mutate(plot_id = seq(3001, 3000 + nrow(us_random_sample)))
+
+us_notcom_random_sample_xy <- do.call(rbind, st_geometry(us_notcom_random_sample)) %>%
+  as.data.frame() %>%
+  setNames(c("lon", "lat")) %>%
+  mutate(plot_id = seq(5501, 5500 + nrow(us_notcom_random_sample)))
+us_random_sample_xy <- bind_rows(us_random_sample_xy, us_notcom_random_sample_xy)
+```
+
+&nbsp;
+
+## soilIDList API Testing
+
+### Run soilIDList API Testing on the Global and US random test datasets
+
+### 1. soilIDList API Testing: Global random sample
+```{r}
+# Global random sample
+global_test_list <- unique(glb_random_sample_xy$plot_id)
+Global.random.soilIDList.API <- list(list())
+
+# Progress combine function
+n <- length(global_test_list)
+pb <- txtProgressBar(min = 1, max = n, style = 3)
+
+stime <- system.time({
+  Global.random.soilIDList.API <- foreach(i = 1:length(global_test_list), .packages = c("stringr", "dplyr", "tidyr", "XML", "reticulate", "purrr", "jsonlite")) %dopar% {
+    setTxtProgressBar(pb, i)
+    tryCatch(
+      {
+        pedon <- glb_random_sample_xy[i, ]
+        lon <- as.numeric(unique(pedon$lon))
+        lat <- as.numeric(unique(pedon$lat))
+        plot_id <- as.numeric(unique(pedon$plot_id))
+        base.url.list <- "http://127.0.0.1:5000/api/v1/soilidlist?"
+        url.list <- paste0(base.url.list, "longitude=", lon, "&latitude=", lat, "&plot_id=", plot_id)
+        querry_time <- system.time({
+          result_list <- possibly(fromJSON, "Failed")(url.list, simplifyDataFrame = FALSE)
+        })[3]
+        Global.random.soilIDList.API[[i]] <- result_list[[1]][[1]][[1]][[1]]
+      },
+      error = function(e) {
+        cat("ERROR :", conditionMessage(e), "\n")
+      }
+    )
+  }
+  close(pb)
+})[3]
+stime
+# 38 mins to run
+Global.random.soilIDList.API[sapply(Global.random.soilIDList.API, is.null)] <- NA
+Global.random.soilIDList.API.df <- unlist(Global.random.soilIDList.API)
+# No Global test points failed
+Global_failed <- which(Global.random.soilIDList.API.df == "Failed")
+```
+
+### 2. soilIDList API Testing: US random sample
+```{r}
+# -----------------------------------------------------------------------------------------------
+# US random sample
+us_test_list <- unique(us_random_sample_xy$plot_id)
+US.random.soilIDList.API <- list(list())
+
+# Progress combine function
+n <- length(us_test_list)
+pb <- txtProgressBar(min = 1, max = n, style = 3)
+
+stime <- system.time({
+  US.random.soilIDList.API <- foreach(i = 1:length(us_test_list), .packages = c("stringr", "dplyr", "tidyr", "XML", "reticulate", "purrr", "jsonlite")) %dopar% {
+    setTxtProgressBar(pb, i)
+    tryCatch(
+      {
+        pedon <- us_random_sample_xy[i, ]
+        lon <- as.numeric(unique(pedon$lon))
+        lat <- as.numeric(unique(pedon$lat))
+        plot_id <- as.numeric(unique(pedon$plot_id))
+        base.url.list <- "http://127.0.0.1:5000/api/v1/soilidlist?"
+        url.list <- paste0(base.url.list, "longitude=", lon, "&latitude=", lat, "&plot_id=", plot_id)
+        querry_time <- system.time({
+          result_list <- possibly(fromJSON, "Failed")(url.list, simplifyDataFrame = FALSE)
+        })[3]
+        US.random.soilIDList.API[[i]] <- result_list[[1]][[1]][[1]][[1]]
+      },
+      error = function(e) {
+        cat("ERROR :", conditionMessage(e), "\n")
+      }
+    )
+  }
+  close(pb)
+})[3]
+stime
+# 3.77 hrs (226 mins)
+US.random.soilIDList.API[sapply(US.random.soilIDList.API, is.null)] <- NA
+US.random.soilIDList.API.df <- unlist(US.random.soilIDList.API)
+failed <- which(US.random.soilIDList.API.df == "Failed") # 53 sites failed
+
+
+
+# Re-process failed tests
+# Failed tests typically resulted from a SoilWeb API timeout. After re-running these, they eventually completed successfully.
+
+# #Progress combine function
+# n <- length(failed)
+# pb <- txtProgressBar(min = 1, max = n, style=3)
+# US.random.soilIDList.API2 <- list(list())
+# stime <- system.time({
+# US.random.soilIDList.API2 <- foreach(i= 1:length(failed), .packages = c("stringr", "dplyr", "tidyr", "XML", "reticulate", "purrr", "jsonlite")) %do% {
+#   setTxtProgressBar(pb, i)
+#   tryCatch({
+#       pedon <- us_random_sample_xy[failed[i],]
+#       lon=as.numeric(unique(pedon$lon))
+#       lat=as.numeric(unique(pedon$lat))
+#       plot_id = as.numeric(unique(pedon$plot_id))
+#       base.url.list <-"http://127.0.0.1:5000/api/v1/soilidlist?"
+#       url.list <- paste0(base.url.list, "longitude=", lon, "&latitude=", lat, "&plot_id=", plot_id)
+#       querry_time <- system.time({
+#       result_list <- possibly(fromJSON, "Failed")(url.list, simplifyDataFrame = FALSE)
+#       })[3]
+#       US.random.soilIDList.API2[i] <- result_list[[1]][[1]][[1]][[1]]
+#
+#     }, error=function(e){cat("ERROR :",conditionMessage(e), "\n")})
+# }
+# close(pb)
+# })[3]
+# stime
+#
+# US.random.soilIDList.API2[sapply(US.random.soilIDList.API2, is.null)] <- NA
+# US.random.soilIDList.API2.df <- unlist(US.random.soilIDList.API2)
+# failed2 <- which(US.random.soilIDList.API2.df=="Failed")
+#
+#
+# #Progress combine function
+# n <- length(failed2)
+# pb <- txtProgressBar(min = 1, max = n, style=3)
+# US.random.soilIDList.API3 <- list(list())
+# stime <- system.time({
+# US.random.soilIDList.API3 <- foreach(i= 1:length(failed2), .packages = c("stringr", "dplyr", "tidyr", "XML", "reticulate", "purrr", "jsonlite")) %dopar% {
+#   setTxtProgressBar(pb, i)
+#   tryCatch({
+#       pedon <- us_random_sample_xy[failed2[i],]
+#       lon=as.numeric(unique(pedon$lon))
+#       lat=as.numeric(unique(pedon$lat))
+#       plot_id = as.numeric(unique(pedon$plot_id))
+#       base.url.list <-"http://127.0.0.1:5000/api/v1/soilidlist?"
+#       url.list <- paste0(base.url.list, "longitude=", lon, "&latitude=", lat, "&plot_id=", plot_id)
+#       querry_time <- system.time({
+#       result_list <- possibly(fromJSON, "Failed")(url.list, simplifyDataFrame = FALSE)
+#       })[3]
+#       US.random.soilIDList.API3[i] <- result_list[[1]][[1]][[1]][[1]]
+#
+#     }, error=function(e){cat("ERROR :",conditionMessage(e), "\n")})
+# }
+# close(pb)
+# })[3]
+# stime
+#
+# US.random.soilIDList.API3[sapply(US.random.soilIDList.API3, is.null)] <- NA
+# US.random.soilIDList.API3.df <- unlist(US.random.soilIDList.API3)
+# failed3 <- which(US.random.soilIDList.API3.df=="Failed")
+```
+
+&nbsp;
+
+## soilIDRank test function:
+
+This function will run the soilIDrank algorithm via the FLASK api. It allows for random subsetting of the test dataset. The required input parameters include:
+
+  + data -- the point dataframe that includes: lat, lon, and plot_id
+  + soilHorizon -- list of seven character values for the soil texuture class. Any missing texture classes should be filled in with ""
+  + rfvDepth -- list of seven character values for the soil rock fragment volume class. Any missing rock fragment volume classes should be filled in with ""
+  + lab_Color -- list of seven numeric vectors for the soil LAB values. Any missing LAB vectors should be filled in with ""
+  + random -- default is FALSE, set to TRUE if you want to create a random subset of data
+  + random_n -- default is 500, change number to create different random subset.
+
+
+```{r}
+soilIDrank_API_test <- function(data, soilHorizon, rfvDepth, lab_Color, bedrock, pSlope, cracks, random = FALSE, random_n = 500) {
+  base.url.rank <- "http://127.0.0.1:5000/api/v1/soilidrank?"
+  horizonDepth <- horizonDepth <- list(1, 10, 20, 50, 70, 100, 120)
+  depth.text <- ""
+  for (j in 1:length(horizonDepth)) {
+    depth <- paste0("&soilHorizon", j, "_Depth=", horizonDepth[j])
+    if (str_detect(toupper(soilHorizon[j]), " ") == TRUE) {
+      text <- paste0("&soilHorizon", j, "=", str_replace_all(toupper(soilHorizon[j]), " ", "%20"))
+    } else {
+      text <- paste0("&soilHorizon", j, "=", toupper(soilHorizon[j]))
+    }
+    RFV <- paste0("&soilHorizon", j, "_RFV=", rfvDepth[j])
+    depth.text <- paste0(depth.text, depth, text, RFV)
+  }
+  depth.color <- ""
+  for (j in 1:length(lab_Color)) {
+    color <- paste0("&soilHorizon", j, "_LAB=", paste0(lab_Color[[j]], collapse = ","))
+    depth.color <- paste0(depth.color, color)
+  }
+
+  # Perform random subset if 'random==TRUE'
+  if (random == TRUE) {
+    data <- sample_n(data, random_n)
+  }
+  data_list <- unique(data$plot_id)
+  soilIDrank <- list(list())
+  soilIDrank <- foreach(i = 1:length(data_list), .packages = c("stringr", "dplyr", "tidyr", "XML", "reticulate", "purrr", "jsonlite")) %dopar% {
+    tryCatch(
+      {
+        pedon <- data[i, ]
+        lon <- as.numeric(unique(pedon$lon))
+        lat <- as.numeric(unique(pedon$lat))
+        plot_id <- as.numeric(unique(pedon$plot_id))
+        if (is.na(bedrock) & is.na(pSlope)) {
+          url.rank <- paste0(base.url.rank, "longitude=", lon, "&latitude=", lat, "&plot_id=", plot_id, depth.text, "&cracks=", cracks, depth.color)
+        } else if (!is.na(bedrock) & is.na(pSlope)) {
+          url.rank <- paste0(base.url.rank, "longitude=", lon, "&latitude=", lat, "&plot_id=", plot_id, depth.text, "&cracks=", cracks, "&bedrock=", bedrock, depth.color)
+        } else if (is.na(bedrock) & !is.na(pSlope)) {
+          url.rank <- paste0(base.url.rank, "longitude=", lon, "&latitude=", lat, "&plot_id=", plot_id, depth.text, "&cracks=", cracks, "&slope=", pSlope, depth.color)
+        } else if (!is.na(bedrock) & !is.na(pSlope)) {
+          url.rank <- paste0(base.url.rank, "longitude=", lon, "&latitude=", lat, "&plot_id=", plot_id, depth.text, "&cracks=", cracks, "&slope=", pSlope, "&bedrock=", bedrock, depth.color)
+        }
+        result_list <- possibly(fromJSON, "Failed")(url.rank, simplifyDataFrame = TRUE)
+        soilIDrank[[i]] <- result_list
+      },
+      error = function(e) {
+        cat("ERROR :", conditionMessage(e), "\n")
+      }
+    )
+  }
+
+
+  soilIDrank.df <- list()
+  for (i in 1:length(soilIDrank)) {
+    tryCatch(
+      {
+        soilIDrank.df[i] <- soilIDrank[i][[1]][[1]][[1]][[1]]
+      },
+      error = function(e) {
+        cat("ERROR :", conditionMessage(e), "\n")
+      }
+    )
+  }
+  return(soilIDrank.df)
+}
+```
+
+
+&nbsp;
+
+## soilIDrank API Testing
+
+### Run the 'soilIDrank_API_test' function using the test datasets using different levels of data completeness.
+
+### List of 'soilIDrank' tests
+
+1.	All data
+2.	Slope only (US testing)
+3.	All data - only surface depth (i.e., 1-10)
+4.	All data - only sub-surface depth (i.e., 20-50)
+5.  Subset of properties (500 sample random subset)
+    + Texture only
+      + all depths
+      + only surface depth (i.e., 0-1)
+      + only sub-surface depth (i.e., 20-50)
+    + Rock frags
+      + all depths
+      + only surface depth (i.e., 0-1)
+      + only sub-surface depth (i.e., 20-50)
+    + Color
+      + all depths
+      + only surface depth (i.e., 0-1)
+      + only sub-surface depth (i.e., 20-50)  
+6.  Mix of properties and depths
+      + Texture surface depth (i.e., 0-1) only, color sub-surface depth (i.e., 20-50) only
+      + Color surface depth (i.e., 0-1) only, rock fragments sub-surface depth (i.e., 20-50) only
+7.  Cracking test dataset (US and Global points where vertisols are found)
+      + All data with user identified clay and cracking
+      + All data without user identified clay or cracking
+      + All data - cracking only
+      + All data - user clay only
+      + Cracking only - not texture information
+      + Texture w/ user clay but cracking not specified
+
+
+### Test 1: All data
+```{r}
+# ---Dummy Soil Profile Data
+soilHorizon <- list("LOAM", "LOAM", "LOAM", "LOAM", "LOAM", "LOAM", "LOAM")
+rfvDepth <- list("0-1%", "0-1%", "0-1%", "0-1%", "0-1%", "0-1%", "0-1%")
+lab_Color <- list(c(41.24, 2.54, 21.17), c(41.24, 2.54, 21.17), c(41.24, 2.54, 21.17), c(41.24, 2.54, 21.17), c(41.24, 2.54, 21.17), c(41.24, 2.54, 21.17), c(41.24, 2.54, 21.17))
+bedrock <- NA
+pSlope <- NA
+cracks <- "FALSE"
+# Global soilIDrank --  all data and depths
+stime1.1 <- system.time({
+  Global.random.soilIDrank.API.T1 <- soilIDrank_API_test(data = glb_random_sample_xy, soilHorizon, rfvDepth, lab_Color, bedrock, pSlope, cracks, random = FALSE, random_n = 500)
+  close(pb)
+})[3]
+stime1.1 # 3315 sec, 55 min
+Global.random.soilIDrank.API.T1[sapply(Global.random.soilIDrank.API.T1, is.null)] <- NA
+Global.random.soilIDrank.API.T1 <- unlist(Global.random.soilIDrank.API.T1)
+Global_failed_rank <- which(is.na(Global.random.soilIDrank.API.T1))
+
+# US soilIDrank --  all data and depths
+stime1.2 <- system.time({
+  US.random.soilIDrank.API.T1 <- soilIDrank_API_test(data = us_random_sample_xy, soilHorizon, rfvDepth, lab_Color, bedrock, pSlope, cracks, random = FALSE, random_n = 500)
+  close(pb)
+})[3]
+stime1.2 # 6655 sec, 111 min
+US.random.soilIDrank.API.T1[sapply(US.random.soilIDrank.API.T1, is.null)] <- NA
+US.random.soilIDrank.API.T1 <- unlist(US.random.soilIDrank.API.T1)
+US_failed_rank <- which(is.na(US.random.soilIDrank.API.T1))
+```
+
+### Test 2: Slope only (US testing)
+```{r}
+# ---Dummy Soil Profile Data
+soilHorizon <- list("", "", "", "", "", "", "")
+rfvDepth <- list("", "", "", "", "", "", "")
+lab_Color <- list("", "", "", "", "", "", "")
+bedrock <- NA
+pSlope <- "2"
+cracks <- "FALSE"
+
+# US soilIDrank --  all data and depths
+stime2.1 <- system.time({
+  US.random.soilIDrank.API.T2 <- soilIDrank_API_test(data = us_random_sample_xy, soilHorizon, rfvDepth, lab_Color, bedrock, pSlope, cracks, bedrock, random = FALSE, random_n = 500)
+  close(pb)
+})[3]
+stime2.1 # 733 sec, 12 min
+US.random.soilIDrank.API.T2[sapply(US.random.soilIDrank.API.T2, is.null)] <- NA
+US.random.soilIDrank.API.T2 <- unlist(US.random.soilIDrank.API.T2)
+US_failed_rank.T2 <- which(is.na(US.random.soilIDrank.API.T2))
+```
+
+### Test 3: All data - only surface depth (i.e., 1-10)
+```{r}
+# ---Dummy Soil Profile Data
+soilHorizon <- list("", "LOAM", "", "", "", "", "")
+rfvDepth <- list("", "0-1%", "", "", "", "", "")
+lab_Color <- list("", c(41.24, 2.54, 21.17), "", "", "", "", "")
+bedrock <- NA
+pSlope <- NA
+cracks <- "FALSE"
+
+# Global soilIDrank --  all data - only surface depth (i.e., 1-10)
+stime3.1 <- system.time({
+  Global.random.soilIDrank.API.T3 <- soilIDrank_API_test(data = glb_random_sample_xy, soilHorizon, rfvDepth, lab_Color, bedrock, pSlope, cracks, random = FALSE, random_n = 500)
+  close(pb)
+})[3]
+stime3.1 # 904 sec, 15 min
+Global.random.soilIDrank.API.T3[sapply(Global.random.soilIDrank.API.T3, is.null)] <- NA
+Global.random.soilIDrank.API.T3 <- unlist(Global.random.soilIDrank.API.T3)
+Global_failed_rank.T3 <- which(is.na(Global.random.soilIDrank.API.T3))
+
+# US soilIDrank --  all data - only surface depth (i.e., 1-10)
+stime3.2 <- system.time({
+  US.random.soilIDrank.API.T3 <- soilIDrank_API_test(data = us_random_sample_xy, soilHorizon, rfvDepth, lab_Color, bedrock, pSlope, cracks, random = FALSE, random_n = 500)
+  close(pb)
+})[3]
+stime3.2 # 1433 sec, 24 min
+US.random.soilIDrank.API.T3[sapply(US.random.soilIDrank.API.T3, is.null)] <- NA
+US.random.soilIDrank.API.T3 <- unlist(US.random.soilIDrank.API.T3)
+US_failed_rank.T3 <- which(is.na(US.random.soilIDrank.API.T3))
+```
+
+
+### Test 4: All data - only sub-surface depth (i.e., 20-50)
+```{r}
+# ---Dummy Soil Profile Data
+soilHorizon <- list("", "", "", "LOAM", "", "", "")
+rfvDepth <- list("", "", "", "0-1%", "", "", "")
+lab_Color <- list("", "", "", c(41.24, 2.54, 21.17), "", "", "")
+bedrock <- NA
+pSlope <- NA
+cracks <- "FALSE"
+
+# Global soilIDrank --  only sub-surface depth (i.e., 20-50)
+stime4.1 <- system.time({
+  Global.random.soilIDrank.API.T4 <- soilIDrank_API_test(data = glb_random_sample_xy, soilHorizon, rfvDepth, lab_Color, bedrock, pSlope, cracks, random = FALSE, random_n = 500)
+  close(pb)
+})[3]
+stime4.1 # 2327 sec, 39 min
+Global.random.soilIDrank.API.T4[sapply(Global.random.soilIDrank.API.T4, is.null)] <- NA
+Global.random.soilIDrank.API.T4 <- unlist(Global.random.soilIDrank.API.T4)
+Global_failed_rank.T4 <- which(is.na(Global.random.soilIDrank.API.T4))
+
+# US soilIDrank --  only sub-surface depth (i.e., 20-50)
+stime4.2 <- system.time({
+  US.random.soilIDrank.API.T4 <- soilIDrank_API_test(data = us_random_sample_xy, soilHorizon, rfvDepth, lab_Color, bedrock, pSlope, cracks, random = FALSE, random_n = 500)
+  close(pb)
+})[3]
+stime4.2 # 2586 sec, 43 min
+US.random.soilIDrank.API.T4[sapply(US.random.soilIDrank.API.T4, is.null)] <- NA
+US.random.soilIDrank.API.T4 <- unlist(US.random.soilIDrank.API.T4)
+US_failed_rank.T4 <- which(is.na(US.random.soilIDrank.API.T4))
+```
+
+&nbsp;
+
+### Test 5: Subset of properties (500 sample random subset)
+Subset of properties (500 sample random subset)
+
+    + Texture only
+      + all depths
+      + only surface depth (i.e., 0-1)
+      + only sub-surface depth (i.e., 20-50)
+    + Rock frags
+      + all depths
+      + only surface depth (i.e., 0-1)
+      + only sub-surface depth (i.e., 20-50)
+    + Color
+      + all depths
+      + only surface depth (i.e., 0-1)
+      + only sub-surface depth (i.e., 20-50) 
+      
+### Test 5.1 Texture only
+#### Test 5.1.1 Texture only -- all depths
+```{r}
+# Test 5.1.1 Texture only -- all depths
+# ---Dummy Soil Profile Data
+set.seed(9)
+soilHorizon <- list("LOAM", "LOAM", "LOAM", "LOAM", "LOAM", "LOAM", "LOAM")
+rfvDepth <- list("", "", "", "", "", "", "")
+lab_Color <- list("", "", "", "", "", "", "")
+bedrock <- NA
+pSlope <- NA
+cracks <- "FALSE"
+
+# Global soilIDrank --  Texture only -- all depths
+stime5.1.1.1 <- system.time({
+  Global.random.soilIDrank.API.T5.1.1 <- soilIDrank_API_test(data = glb_random_sample_xy, soilHorizon, rfvDepth, lab_Color, bedrock, pSlope, cracks, random = TRUE, random_n = 500)
+  close(pb)
+})[3]
+stime5.1.1.1 # 373 sec,  6 min
+Global.random.soilIDrank.API.T5.1.1[sapply(Global.random.soilIDrank.API.T5.1.1, is.null)] <- NA
+Global.random.soilIDrank.API.T5.1.1 <- unlist(Global.random.soilIDrank.API.T5.1.1)
+Global_failed_rank.T5.1.1 <- which(is.na(Global.random.soilIDrank.API.T5.1.1))
+Global_failed_rank.T5.1.1
+Global_failed_rank.T5.1.1 <- which(Global.random.soilIDrank.API.T5.1.1 == "Failed")
+Global_failed_rank.T5.1.1
+# US soilIDrank -- Texture only -- all depths
+stime5.1.1.2 <- system.time({
+  US.random.soilIDrank.API.T5.1.1 <- soilIDrank_API_test(data = us_random_sample_xy, soilHorizon, rfvDepth, lab_Color, bedrock, pSlope, cracks, random = TRUE, random_n = 500)
+  close(pb)
+})[3]
+stime5.1.1.2 # 1124 sec,  19 min
+US.random.soilIDrank.API.T5.1.1[sapply(US.random.soilIDrank.API.T5.1.1, is.null)] <- NA
+US.random.soilIDrank.API.T5.1.1 <- unlist(US.random.soilIDrank.API.T5.1.1)
+US_failed_rank.T5.1.1 <- which(is.na(US.random.soilIDrank.API.T5.1.1))
+US_failed_rank.T5.1.1
+US_failed_rank.T5.1.1 <- which(US.random.soilIDrank.API.T5.1.1 == "Failed")
+US_failed_rank.T5.1.1
+```
+
+#### Test 5.1.2 Texture only -- only surface depth (i.e., 0-1)
+```{r}
+# Test 5.1.2 Texture only -- only surface depth (i.e., 0-1)
+# ---Dummy Soil Profile Data
+set.seed(10)
+soilHorizon <- list("LOAM", "", "", "", "", "", "")
+rfvDepth <- list("", "", "", "", "", "", "")
+lab_Color <- list("", "", "", "", "", "", "")
+bedrock <- NA
+pSlope <- NA
+cracks <- "FALSE"
+
+# Global soilIDrank --  Texture only -- only surface depth (i.e., 0-1)
+stime5.1.2.1 <- system.time({
+  Global.random.soilIDrank.API.T5.1.2 <- soilIDrank_API_test(data = glb_random_sample_xy, soilHorizon, rfvDepth, lab_Color, bedrock, pSlope, cracks, random = TRUE, random_n = 500)
+  close(pb)
+})[3]
+stime5.1.2.1 # sec,  min
+Global.random.soilIDrank.API.T5.1.2[sapply(Global.random.soilIDrank.API.T5.1.2, is.null)] <- NA
+Global.random.soilIDrank.API.T5.1.2 <- unlist(Global.random.soilIDrank.API.T5.1.2)
+Global_failed_rank.T5.1.2 <- which(is.na(Global.random.soilIDrank.API.T5.1.2))
+
+# US soilIDrank -- Texture only -- only surface depth (i.e., 0-1)
+stime5.1.2.2 <- system.time({
+  US.random.soilIDrank.API.T5.1.2 <- soilIDrank_API_test(data = us_random_sample_xy, soilHorizon, rfvDepth, lab_Color, bedrock, pSlope, cracks, random = TRUE, random_n = 500)
+  close(pb)
+})[3]
+stime5.1.2.2 # sec,  min
+US.random.soilIDrank.API.T5.1.2[sapply(US.random.soilIDrank.API.T5.1.2, is.null)] <- NA
+US.random.soilIDrank.API.T5.1.2 <- unlist(US.random.soilIDrank.API.T5.1.2)
+US_failed_rank.T5.1.2 <- which(is.na(US.random.soilIDrank.API.T5.1.2))
+```
+
+#### Test 5.1.3 Texture only -- only sub-surface depth (i.e., 20-50)
+```{r}
+# Test 5.1.3 Texture only -- only sub-surface depth (i.e., 20-50)
+# ---Dummy Soil Profile Data
+set.seed(11)
+soilHorizon <- list("", "", "", "LOAM", "", "", "")
+rfvDepth <- list("", "", "", "", "", "", "")
+lab_Color <- list("", "", "", "", "", "", "")
+bedrock <- NA
+pSlope <- NA
+cracks <- "FALSE"
+
+# Global soilIDrank --  Texture only -- only surface depth (i.e., 0-1)
+stime5.1.3.1 <- system.time({
+  Global.random.soilIDrank.API.T5.1.3 <- soilIDrank_API_test(data = glb_random_sample_xy, soilHorizon, rfvDepth, lab_Color, bedrock, pSlope, cracks, random = TRUE, random_n = 500)
+  close(pb)
+})[3]
+stime5.1.3.1 # sec,  min
+Global.random.soilIDrank.API.T5.1.3[sapply(Global.random.soilIDrank.API.T5.1.3, is.null)] <- NA
+Global.random.soilIDrank.API.T5.1.3 <- unlist(Global.random.soilIDrank.API.T5.1.3)
+Global_failed_rank.T5.1.3 <- which(is.na(Global.random.soilIDrank.API.T5.1.3))
+
+# US soilIDrank -- Texture only -- only surface depth (i.e., 0-1)
+stime5.1.3.2 <- system.time({
+  US.random.soilIDrank.API.T5.1.3 <- soilIDrank_API_test(data = us_random_sample_xy, soilHorizon, rfvDepth, lab_Color, bedrock, pSlope, cracks, random = TRUE, random_n = 500)
+  close(pb)
+})[3]
+stime5.1.3.2 # sec,  min
+US.random.soilIDrank.API.T5.1.3[sapply(US.random.soilIDrank.API.T5.1.3, is.null)] <- NA
+US.random.soilIDrank.API.T5.1.3 <- unlist(US.random.soilIDrank.API.T5.1.3)
+US_failed_rank.T5.1.3 <- which(is.na(US.random.soilIDrank.API.T5.1.3))
+```
+
+
+### Test 5.2 Rock frags only
+#### Test 5.2.1 Rock frags only -- all depths
+```{r}
+# Test 5.2.1 Rock frags only -- all depths
+# ---Dummy Soil Profile Data
+set.seed(12)
+soilHorizon <- list("", "", "", "", "", "", "")
+rfvDepth <- list("0-1%", "0-1%", "0-1%", "0-1%", "0-1%", "0-1%", "0-1%")
+lab_Color <- list("", "", "", "", "", "", "")
+bedrock <- NA
+pSlope <- NA
+cracks <- "FALSE"
+
+# Global soilIDrank --  Rock frags only -- all depths
+stime5.2.1.1 <- system.time({
+  Global.random.soilIDrank.API.T5.2.1 <- soilIDrank_API_test(data = glb_random_sample_xy, soilHorizon, rfvDepth, lab_Color, bedrock, pSlope, cracks, random = TRUE, random_n = 500)
+  close(pb)
+})[3]
+stime5.2.1.1 # sec,  min
+Global.random.soilIDrank.API.T5.2.1[sapply(Global.random.soilIDrank.API.T5.2.1, is.null)] <- NA
+Global.random.soilIDrank.API.T5.2.1 <- unlist(Global.random.soilIDrank.API.T5.2.1)
+Global_failed_rank.T5.2.1 <- which(is.na(Global.random.soilIDrank.API.T5.2.1))
+
+# US soilIDrank -- Rock frags only -- all depths
+stime5.2.1.2 <- system.time({
+  US.random.soilIDrank.API.T5.2.1 <- soilIDrank_API_test(data = us_random_sample_xy, soilHorizon, rfvDepth, lab_Color, bedrock, pSlope, cracks, random = TRUE, random_n = 500)
+  close(pb)
+})[3]
+stime5.2.1.2 # sec,  min
+US.random.soilIDrank.API.T5.2.1[sapply(US.random.soilIDrank.API.T5.2.1, is.null)] <- NA
+US.random.soilIDrank.API.T5.2.1 <- unlist(US.random.soilIDrank.API.T5.2.1)
+US_failed_rank.T5.2.1 <- which(is.na(US.random.soilIDrank.API.T5.2.1))
+```
+
+#### Test 5.2.2 Rock frags only -- only surface depth (i.e., 0-1)
+```{r}
+# Test 5.2.2 Rock frags only -- only surface depth (i.e., 0-1)
+# ---Dummy Soil Profile Data
+set.seed(13)
+soilHorizon <- list("", "", "", "", "", "", "")
+rfvDepth <- list("0-1%", "", "", "", "", "", "")
+lab_Color <- list("", "", "", "", "", "", "")
+bedrock <- NA
+pSlope <- NA
+cracks <- "FALSE"
+
+# Global soilIDrank --  Rock frags only -- only surface depth (i.e., 0-1)
+stime5.2.2.1 <- system.time({
+  Global.random.soilIDrank.API.T5.2.2 <- soilIDrank_API_test(data = glb_random_sample_xy, soilHorizon, rfvDepth, lab_Color, bedrock, pSlope, cracks, random = TRUE, random_n = 500)
+  close(pb)
+})[3]
+stime5.2.2.1 # sec,  min
+Global.random.soilIDrank.API.T5.2.2[sapply(Global.random.soilIDrank.API.T5.2.2, is.null)] <- NA
+Global.random.soilIDrank.API.T5.2.2 <- unlist(Global.random.soilIDrank.API.T5.2.2)
+Global_failed_rank.T5.2.2 <- which(is.na(Global.random.soilIDrank.API.T5.2.2))
+
+# US soilIDrank -- Rock frags only -- only surface depth (i.e., 0-1)
+stime5.2.2.2 <- system.time({
+  US.random.soilIDrank.API.T5.2.2 <- soilIDrank_API_test(data = us_random_sample_xy, soilHorizon, rfvDepth, lab_Color, bedrock, pSlope, cracks, random = TRUE, random_n = 500)
+  close(pb)
+})[3]
+stime5.2.2.2 # sec,  min
+US.random.soilIDrank.API.T5.2.2[sapply(US.random.soilIDrank.API.T5.2.2, is.null)] <- NA
+US.random.soilIDrank.API.T5.2.2 <- unlist(US.random.soilIDrank.API.T5.2.2)
+US_failed_rank.T5.2.2 <- which(is.na(US.random.soilIDrank.API.T5.2.2))
+```
+
+#### Test 5.2.3 Rock frags only -- only sub-surface depth (i.e., 20-50)
+```{r}
+# Test 5.2.3 Rock frags only -- only sub-surface depth (i.e., 20-50)
+# ---Dummy Soil Profile Data
+set.seed(14)
+soilHorizon <- list("", "", "", "", "", "", "")
+rfvDepth <- list("", "", "", "0-1%", "", "", "")
+lab_Color <- list("", "", "", "", "", "", "")
+bedrock <- NA
+pSlope <- NA
+cracks <- "FALSE"
+
+# Global soilIDrank --  Rock frags only -- only surface depth (i.e., 0-1)
+stime5.2.3.1 <- system.time({
+  Global.random.soilIDrank.API.T5.2.3 <- soilIDrank_API_test(data = glb_random_sample_xy, soilHorizon, rfvDepth, lab_Color, bedrock, pSlope, cracks, random = TRUE, random_n = 500)
+  close(pb)
+})[3]
+stime5.2.3.1 # sec,  min
+Global.random.soilIDrank.API.T5.2.3[sapply(Global.random.soilIDrank.API.T5.2.3, is.null)] <- NA
+Global.random.soilIDrank.API.T5.2.3 <- unlist(Global.random.soilIDrank.API.T5.2.3)
+Global_failed_rank.T5.2.3 <- which(is.na(Global.random.soilIDrank.API.T5.2.3))
+
+# US soilIDrank -- Rock frags only -- only surface depth (i.e., 0-1)
+stime5.2.3.2 <- system.time({
+  US.random.soilIDrank.API.T5.2.3 <- soilIDrank_API_test(data = us_random_sample_xy, soilHorizon, rfvDepth, lab_Color, bedrock, pSlope, cracks, random = TRUE, random_n = 500)
+  close(pb)
+})[3]
+stime5.2.3.2 # sec,  min
+US.random.soilIDrank.API.T5.2.3[sapply(US.random.soilIDrank.API.T5.2.3, is.null)] <- NA
+US.random.soilIDrank.API.T5.2.3 <- unlist(US.random.soilIDrank.API.T5.2.3)
+US_failed_rank.T5.2.3 <- which(is.na(US.random.soilIDrank.API.T5.2.3))
+```
+
+
+### Test 5.3 Color only
+#### Test 5.3.1 Color only -- all depths
+```{r}
+# Test 5.3.1 Color only -- all depths
+# ---Dummy Soil Profile Data
+set.seed(15)
+soilHorizon <- list("", "", "", "", "", "", "")
+rfvDepth <- list("", "", "", "", "", "", "")
+lab_Color <- list(c(41.24, 2.54, 21.17), c(41.24, 2.54, 21.17), c(41.24, 2.54, 21.17), c(41.24, 2.54, 21.17), c(41.24, 2.54, 21.17), c(41.24, 2.54, 21.17), c(41.24, 2.54, 21.17))
+bedrock <- NA
+pSlope <- NA
+cracks <- "FALSE"
+
+# Global soilIDrank --  Color only -- all depths
+stime5.3.1.1 <- system.time({
+  Global.random.soilIDrank.API.T5.3.1 <- soilIDrank_API_test(data = glb_random_sample_xy, soilHorizon, rfvDepth, lab_Color, bedrock, pSlope, cracks, random = TRUE, random_n = 500)
+  close(pb)
+})[3]
+stime5.3.1.1 # sec,  min
+Global.random.soilIDrank.API.T5.3.1[sapply(Global.random.soilIDrank.API.T5.3.1, is.null)] <- NA
+Global.random.soilIDrank.API.T5.3.1 <- unlist(Global.random.soilIDrank.API.T5.3.1)
+Global_failed_rank.T5.3.1 <- which(is.na(Global.random.soilIDrank.API.T5.3.1))
+
+# US soilIDrank -- Color only -- all depths
+stime5.3.1.2 <- system.time({
+  US.random.soilIDrank.API.T5.3.1 <- soilIDrank_API_test(data = us_random_sample_xy, soilHorizon, rfvDepth, lab_Color, bedrock, pSlope, cracks, random = TRUE, random_n = 500)
+  close(pb)
+})[3]
+stime5.3.1.2 # sec,  min
+US.random.soilIDrank.API.T5.3.1[sapply(US.random.soilIDrank.API.T5.3.1, is.null)] <- NA
+US.random.soilIDrank.API.T5.3.1 <- unlist(US.random.soilIDrank.API.T5.3.1)
+US_failed_rank.T5.3.1 <- which(is.na(US.random.soilIDrank.API.T5.3.1))
+US_failed_rank.T5.3.1 <- which(US.random.soilIDrank.API.T5.3.1 == "Failed")
+```
+
+#### Test 5.3.2 Color only -- only surface depth (i.e., 0-1)
+```{r}
+# Test 5.3.2 Color only -- only surface depth (i.e., 0-1)
+# ---Dummy Soil Profile Data
+set.seed(16)
+soilHorizon <- list("", "", "", "", "", "", "")
+rfvDepth <- list("", "", "", "", "", "", "")
+lab_Color <- list(c(41.24, 2.54, 21.17), "", "", "", "", "", "")
+bedrock <- NA
+pSlope <- NA
+cracks <- "FALSE"
+
+# Global soilIDrank --  Color only -- only surface depth (i.e., 0-1)
+stime5.3.2.1 <- system.time({
+  Global.random.soilIDrank.API.T5.3.2 <- soilIDrank_API_test(data = glb_random_sample_xy, soilHorizon, rfvDepth, lab_Color, bedrock, pSlope, cracks, random = TRUE, random_n = 500)
+  close(pb)
+})[3]
+stime5.3.2.1 # sec,  min
+Global.random.soilIDrank.API.T5.3.2[sapply(Global.random.soilIDrank.API.T5.3.2, is.null)] <- NA
+Global.random.soilIDrank.API.T5.3.2 <- unlist(Global.random.soilIDrank.API.T5.3.2)
+Global_failed_rank.T5.3.2 <- which(is.na(Global.random.soilIDrank.API.T5.3.2))
+
+# US soilIDrank -- Color only -- only surface depth (i.e., 0-1)
+stime5.3.2.2 <- system.time({
+  US.random.soilIDrank.API.T5.3.2 <- soilIDrank_API_test(data = us_random_sample_xy, soilHorizon, rfvDepth, lab_Color, bedrock, pSlope, cracks, random = TRUE, random_n = 500)
+  close(pb)
+})[3]
+stime5.3.2.2 # sec,  min
+US.random.soilIDrank.API.T5.3.2[sapply(US.random.soilIDrank.API.T5.3.2, is.null)] <- NA
+US.random.soilIDrank.API.T5.3.2 <- unlist(US.random.soilIDrank.API.T5.3.2)
+US_failed_rank.T5.3.2 <- which(is.na(US.random.soilIDrank.API.T5.3.2))
+```
+
+#### Test 5.3.3 Color only -- only sub-surface depth (i.e., 20-50)
+```{r}
+# Test 5.3.3 Color only -- only sub-surface depth (i.e., 20-50)
+# ---Dummy Soil Profile Data
+set.seed(17)
+soilHorizon <- list("", "", "", "", "", "", "")
+rfvDepth <- list("", "", "", "", "", "", "")
+lab_Color <- list("", "", "", c(41.24, 2.54, 21.17), "", "", "")
+bedrock <- NA
+pSlope <- NA
+cracks <- "FALSE"
+
+# Global soilIDrank --  Color only -- only surface depth (i.e., 0-1)
+stime5.3.3.1 <- system.time({
+  Global.random.soilIDrank.API.T5.3.3 <- soilIDrank_API_test(data = glb_random_sample_xy, soilHorizon, rfvDepth, lab_Color, bedrock, pSlope, cracks, random = TRUE, random_n = 500)
+  close(pb)
+})[3]
+stime5.3.3.1 # sec,  min
+Global.random.soilIDrank.API.T5.3.3[sapply(Global.random.soilIDrank.API.T5.3.3, is.null)] <- NA
+Global.random.soilIDrank.API.T5.3.3 <- unlist(Global.random.soilIDrank.API.T5.3.3)
+Global_failed_rank.T5.3.3 <- which(is.na(Global.random.soilIDrank.API.T5.3.3))
+
+# US soilIDrank -- Color only -- only surface depth (i.e., 0-1)
+stime5.3.3.2 <- system.time({
+  US.random.soilIDrank.API.T5.3.3 <- soilIDrank_API_test(data = us_random_sample_xy, soilHorizon, rfvDepth, lab_Color, bedrock, pSlope, cracks, random = TRUE, random_n = 500)
+  close(pb)
+})[3]
+stime5.3.3.2 # sec,  min
+US.random.soilIDrank.API.T5.3.3[sapply(US.random.soilIDrank.API.T5.3.3, is.null)] <- NA
+US.random.soilIDrank.API.T5.3.3 <- unlist(US.random.soilIDrank.API.T5.3.3)
+US_failed_rank.T5.3.3 <- which(is.na(US.random.soilIDrank.API.T5.3.3))
+```
+
+
+&nbsp;
+
+### Test 6:  Mix of properties and depths
+    + Texture surface depth (i.e., 0-1) only, color sub-surface depth (i.e., 20-50) only
+    + Color surface depth (i.e., 0-1) only, rock fragments sub-surface depth (i.e., 20-50) only
+
+#### Test 6.1 Texture surface depth (i.e., 0-1) only, color sub-surface depth (i.e., 20-50) only
+```{r}
+# Test 6.1 Texture surface depth (i.e., 0-1) only, color sub-surface depth (i.e., 20-50) only
+# ---Dummy Soil Profile Data
+set.seed(18)
+soilHorizon <- list("LOAM", "", "", "", "", "", "")
+rfvDepth <- list("", "", "", "", "", "", "")
+lab_Color <- list("", "", "", c(41.24, 2.54, 21.17), "", "", "")
+bedrock <- NA
+pSlope <- NA
+cracks <- "FALSE"
+
+# Global soilIDrank --  Texture surface depth (i.e., 0-1) only, color sub-surface depth (i.e., 20-50) only
+stime6.1.1 <- system.time({
+  Global.random.soilIDrank.API.T6.1 <- soilIDrank_API_test(data = glb_random_sample_xy, soilHorizon, rfvDepth, lab_Color, bedrock, pSlope, cracks, random = TRUE, random_n = 500)
+  close(pb)
+})[3]
+stime6.1.1 # sec,  min
+Global.random.soilIDrank.API.T6.1[sapply(Global.random.soilIDrank.API.T6.1, is.null)] <- NA
+Global.random.soilIDrank.API.T6.1 <- unlist(Global.random.soilIDrank.API.T6.1)
+Global_failed_rank.T6.1 <- which(is.na(Global.random.soilIDrank.API.T6.1))
+
+# US soilIDrank -- Texture surface depth (i.e., 0-1) only, color sub-surface depth (i.e., 20-50) only
+stime6.1.2 <- system.time({
+  US.random.soilIDrank.API.T6.1 <- soilIDrank_API_test(data = us_random_sample_xy, soilHorizon, rfvDepth, lab_Color, bedrock, pSlope, cracks, random = TRUE, random_n = 500)
+  close(pb)
+})[3]
+stime6.1.2 # sec,  min
+US.random.soilIDrank.API.T6.1[sapply(US.random.soilIDrank.API.T6.1, is.null)] <- NA
+US.random.soilIDrank.API.T6.1 <- unlist(US.random.soilIDrank.API.T6.1)
+US_failed_rank.T6.1 <- which(is.na(US.random.soilIDrank.API.T6.1))
+```
+
+#### Test 6.2 Color surface depth (i.e., 0-1) only, rock fragments sub-surface depth (i.e., 20-50) only
+```{r}
+# Test 6.2 Color surface depth (i.e., 0-1) only, rock fragments sub-surface depth (i.e., 20-50) only
+# ---Dummy Soil Profile Data
+set.seed(19)
+soilHorizon <- list("", "", "", "", "", "", "")
+rfvDepth <- list("", "", "", "0-1%", "", "", "")
+lab_Color <- list(c(41.24, 2.54, 21.17), "", "", "", "", "", "")
+bedrock <- NA
+pSlope <- NA
+cracks <- "FALSE"
+
+# Global soilIDrank --  Color surface depth (i.e., 0-1) only, rock fragments sub-surface depth (i.e., 20-50) only
+stime6.2.1 <- system.time({
+  Global.random.soilIDrank.API.T6.2 <- soilIDrank_API_test(data = glb_random_sample_xy, soilHorizon, rfvDepth, lab_Color, bedrock, pSlope, cracks, random = TRUE, random_n = 500)
+  close(pb)
+})[3]
+stime6.2.1 # sec,  min
+Global.random.soilIDrank.API.T6.2[sapply(Global.random.soilIDrank.API.T6.2, is.null)] <- NA
+Global.random.soilIDrank.API.T6.2 <- unlist(Global.random.soilIDrank.API.T6.2)
+Global_failed_rank.T6.2 <- which(is.na(Global.random.soilIDrank.API.T6.2))
+
+# US soilIDrank -- Color surface depth (i.e., 0-1) only, rock fragments sub-surface depth (i.e., 20-50) only
+stime6.2.2 <- system.time({
+  US.random.soilIDrank.API.T6.2 <- soilIDrank_API_test(data = us_random_sample_xy, soilHorizon, rfvDepth, lab_Color, bedrock, pSlope, cracks, random = TRUE, random_n = 500)
+  close(pb)
+})[3]
+stime6.2.2 # sec,  min
+US.random.soilIDrank.API.T6.2[sapply(US.random.soilIDrank.API.T6.2, is.null)] <- NA
+US.random.soilIDrank.API.T6.2 <- unlist(US.random.soilIDrank.API.T6.2)
+US_failed_rank.T6.2 <- which(is.na(US.random.soilIDrank.API.T6.2))
+```
+
+&nbsp;
+
+
+### Test 7.  Cracking test dataset (US and Global points where vertisols are found)
+    + All data with user identified clay and cracking
+    + All data without user identified clay or cracking
+    + All data - cracking only
+    + All data - user clay only
+    + Cracking only - not texture information
+    + Texture w/ user clay but cracking not specified
+
+
+
+
+```{r}
+save.image(here("/data/derived_data/API_Random_Sample_Testing_API-V1_03-03-20.Rdata"))
+```

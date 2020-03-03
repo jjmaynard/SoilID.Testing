@@ -1,0 +1,19 @@
+---
+title: "Generate Global Random Sample"
+output: html_notebook
+---
+
+
+# Code to generate global random sample for testing
+
+```{r}
+library(sf)
+library(sp)
+library(here)
+hwsd <- st_read("C:/R_Drive/Data_Files/LPKS_Data/Data/Shapefiles/HWSD_Global_Area_noUS.shp")
+
+global_random_sample <- spsample(as(hwsd, "Spatial"), n=3000, type="random")
+saveRDS(global_random_sample, here("/data/raw_data/Global_random_sample.rds"))
+
+```
+
